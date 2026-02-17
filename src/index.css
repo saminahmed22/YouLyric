@@ -1,10 +1,19 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html,
-body {
+#youLyricRoot {
   height: 100%;
   width: 100%;
+}
+
+.appDiv {
+  min-height: 100px;
+  height: fit-content;
+
+  min-width: fit-content;
+  max-width: 100%;
+
+  color: silver;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+
+  margin-bottom: 12px;
 }
