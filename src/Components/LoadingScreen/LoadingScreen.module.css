@@ -1,0 +1,26 @@
+.LoadingScreenDiv {
+  height: 100px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.loadingIcon {
+  height: 20px;
+  animation: rotation 1s linear infinite;
+
+  filter: brightness(0) saturate(100%) invert(86%) sepia(74%) saturate(0%)
+    hue-rotate(245deg) brightness(104%) contrast(104%);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
