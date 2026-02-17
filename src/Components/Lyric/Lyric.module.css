@@ -1,0 +1,15 @@
+.contentDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  margin: 20px;
+}
+
+.lyricDivHeader {
+  font-size: 1.6rem;
+}
+
+.lyricText {
+  font-size: 1.4rem;
+}
