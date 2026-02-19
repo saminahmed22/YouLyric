@@ -1,0 +1,39 @@
+.ActDiv {
+  max-height: 100%;
+  width: fit-content;
+
+  display: flex;
+
+  margin: 20px 20px 20px 0;
+}
+
+.actBtnContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.actBtn {
+  height: 50px;
+  width: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: transparent;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: background-color 0.3s;
+}
+
+.actBtn:hover {
+  background-color: rgba(255, 255, 255, 0.271);
+}
+
+.actBtn:disabled {
+  opacity: 0.5;
+}
