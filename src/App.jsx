@@ -6,7 +6,6 @@ import { AppContext } from "./context";
 function App({ title, author }) {
   const [loaded, setLoaded] = useState(false);
   const [fontSize, setFontSize] = useState(1.4);
-  const [pip, setPip] = useState(false);
   const [mount, setMount] = useState(true);
   const [lyrics, setLyrics] = useState([]);
 
@@ -19,8 +18,6 @@ function App({ title, author }) {
             setLoaded,
             fontSize,
             setFontSize,
-            pip,
-            setPip,
             mount,
             setMount,
             lyrics,

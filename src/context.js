@@ -5,8 +5,6 @@ export const AppContext = createContext({
   setLoaded: () => {},
   fontSize: 1.4,
   setFontSize: () => {},
-  pip: false,
-  setPip: () => {},
   mount: true,
   setMount: () => {},
   lyrics: [],
