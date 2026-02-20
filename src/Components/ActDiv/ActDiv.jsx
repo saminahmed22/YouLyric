@@ -28,7 +28,7 @@ export default function ActDiv() {
           className={styles.actBtn}
           title="Zoom in"
           onClick={increaseFontSize}
-          disabled={fontSize >= 2}
+          disabled={fontSize >= 3}
         >
           <img src={zoomInIcon} alt="Zoom in icon" />
         </button>
@@ -36,7 +36,7 @@ export default function ActDiv() {
           className={styles.actBtn}
           title="Zoom out"
           onClick={decreaseFontSize}
-          disabled={fontSize <= 0.8}
+          disabled={fontSize <= 1}
         >
           <img src={zoomOutIcon} alt="Zoom out icon" />
         </button>
