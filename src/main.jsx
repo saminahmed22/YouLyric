@@ -70,7 +70,13 @@ document.addEventListener("yt-navigate-finish", () => {
   });
 });
 
-//issue playing certain songs, best guess, playlists caches the videos, and might trigger different singals
+// function ytFlexy() {
+//   const watchFlexy = document.querySelector("ytd-watch-flexy");
+//   if (!watchFlexy) return;
+//   const currentVideoID = watchFlexy.getAttribute("video-id");
+// }
+
+// //issue playing certain songs, best guess, playlists caches the videos, and might trigger different singals
 // document.addEventListener("yt-page-data-updated", () => {
 //   observer = new MutationObserver(() => {
 //     const middleRowDiv = document.querySelector("#middle-row");
