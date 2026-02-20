@@ -5,7 +5,13 @@ export default async function fetchLyrics(title, author) {
   const url = `https://lrclib.net/api/search?track_name=${updatedTitle}&artist_name=${updatedAuthor}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "User-Agent":
+          "YouLyric v1.0.0 (https://github.com/saminahmed22/YouLyric)",
+      },
+    });
 
     const data = await response.json();
 
