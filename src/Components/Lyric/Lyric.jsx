@@ -64,7 +64,7 @@ export default function Lyric() {
           >
             LRCLIB
           </a>
-          . Please consider supporting them.
+          . Please consider giving them a donation.
         </p>
       </div>
     </div>
