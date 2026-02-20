@@ -1,16 +1,21 @@
-# React + Vite
+# YouLyric
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+YouLyric is a browser extension that injects lyrics under music videos on YouTube.
 
-Currently, two official plugins are available:
+![Screenshot of the extension showing lyrics under a YouTube video](./public/image.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Multiple versions of the lyrics, which you can scroll through using the scroll-left and scroll-right buttons
+- Zoom in and out
+- Manually searching for lyrics if the extension can't find it due to the method it uses to detect songs(more about it later).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## How it detects the songs
 
-## Expanding the ESLint configuration
+YouTube itself does half of the job here by providing attributes for most of the songs in the description. This extension then just extracts the title and author name from there as most of the time it's just plain text without any junk in it. Then it fetches the lyrics from [LRCLIB](https://lrclib.net/). Given how it detects the songs, many times it might fail to get the lyrics due to the attributes from YouTube itself might have junk in it. To solve that issue, I've added a feature to manually search for the song.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### ToDo
+
+- Adding PIP feature
+- Adding options to search for lyrics for videos that doesn't have any attributions
+- Styles customization
