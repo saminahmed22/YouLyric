@@ -1,14 +1,14 @@
 #youLyricRoot {
-  height: 100%;
-  width: 100%;
+  min-height: fit-content;
 }
 
 .appDiv {
   min-height: 100px;
   height: fit-content;
 
-  min-width: fit-content;
-  max-width: 100%;
+  width: 100%;
+
+  display: flex;
 
   color: silver;
 
@@ -16,4 +16,13 @@
   border-radius: 12px;
 
   margin-bottom: 12px;
+
+  cursor: default;
+
+  font-size: 1.2rem;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
