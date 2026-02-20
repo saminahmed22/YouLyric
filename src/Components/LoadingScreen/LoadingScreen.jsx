@@ -30,9 +30,18 @@ export default function LoadingScreen({ title, author }) {
       return (
         <div className={styles.cantFindDiv}>
           <ManualSearchForm />
-          <p>{`Unable to find lyrics :(,
-          this mainly happens because of 'junk' in the name of the song or the author.
-          Please search for the lyrics manually`}</p>
+          <div className={styles.cantFindMessage}>
+            <p> {`Unable to find lyrics :(`} </p>
+            <p>
+              This mainly happens because of the 'junks' in the name of the song
+              or the author.
+            </p>
+            <p>
+              Please search for the lyrics manually. Just type the title and
+              name of the author, don't use any punctuation marks for best
+              results.
+            </p>
+          </div>
         </div>
       );
     } else {
