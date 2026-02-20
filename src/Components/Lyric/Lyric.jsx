@@ -55,6 +55,17 @@ export default function Lyric() {
         >
           {currentLyrics}
         </pre>
+        <p className={styles.credit}>
+          Lyrics were fetched from{" "}
+          <a
+            href="https://lrclib.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LRCLIB
+          </a>
+          . Please consider supporting them.
+        </p>
       </div>
     </div>
   );
