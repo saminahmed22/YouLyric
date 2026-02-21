@@ -5,8 +5,6 @@ import App from "./App.jsx";
 
 let observer = null;
 
-let title, author;
-
 // bad solution for manual search but I'll see it later
 export function main(title, author, method = "auto") {
   if (method !== "auto") {
@@ -15,6 +13,7 @@ export function main(title, author, method = "auto") {
       container.remove();
     }
   }
+
   const container = document.createElement("div");
   container.id = "youLyricRoot";
 
@@ -39,71 +38,43 @@ document.addEventListener("yt-navigate-start", () => {
   }
 });
 
+let currentVideoID = null;
+
 document.addEventListener("yt-navigate-finish", () => {
-  observer = new MutationObserver(() => {
+  const ytFlexy = document.querySelector("ytd-watch-flexy");
+
+  const invokeMain = () => {
+    const newVideoID = ytFlexy.getAttribute("video-id");
+
+    if (currentVideoID === newVideoID) {
+      return;
+    }
+    currentVideoID = newVideoID;
+
     const middleRowDiv = document.querySelector("#middle-row");
     const metadata = document.querySelector(
       ".yt-video-attribute-view-model__metadata",
     );
     if (middleRowDiv && metadata) {
-      const newTitle = document.querySelector(
+      const title = document.querySelector(
         ".yt-video-attribute-view-model__title",
       ).textContent;
-      const newAuthor = document.querySelector(
+      const author = document.querySelector(
         ".yt-video-attribute-view-model__subtitle",
       ).textContent;
 
-      if (newTitle === title || newAuthor === author) {
-        return;
-      }
-
-      title = newTitle;
-      author = newAuthor;
       observer.disconnect();
       main(title, author);
     }
-  });
+  };
 
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
+  const target = ytFlexy;
+  const config = {
+    attributes: true,
+    attributeFilter: ["video-id"],
+  };
+
+  observer = new MutationObserver(invokeMain);
+
+  observer.observe(target, config);
 });
-
-// function ytFlexy() {
-//   const watchFlexy = document.querySelector("ytd-watch-flexy");
-//   if (!watchFlexy) return;
-//   const currentVideoID = watchFlexy.getAttribute("video-id");
-// }
-
-// //issue playing certain songs, best guess, playlists caches the videos, and might trigger different singals
-// document.addEventListener("yt-page-data-updated", () => {
-//   observer = new MutationObserver(() => {
-//     const middleRowDiv = document.querySelector("#middle-row");
-//     const metadata = document.querySelector(
-//       ".yt-video-attribute-view-model__metadata",
-//     );
-//     if (middleRowDiv && metadata) {
-//       const newTitle = document.querySelector(
-//         ".yt-video-attribute-view-model__title",
-//       ).textContent;
-//       const newAuthor = document.querySelector(
-//         ".yt-video-attribute-view-model__subtitle",
-//       ).textContent;
-
-//       if (newTitle === title || newAuthor === author) {
-//         return;
-//       }
-
-//       title = newTitle;
-//       author = newAuthor;
-//       observer.disconnect();
-//       main(title, author);
-//     }
-//   });
-
-//   observer.observe(document.body, {
-//     childList: true,
-//     subtree: true,
-//   });
-// });
