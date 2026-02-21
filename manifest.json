@@ -27,5 +27,6 @@
     "gecko": {
       "id": "{5ea61a18-abd2-4d17-857a-75fe8bd3f1e3}"
     }
-  }
+  },
+  "data_collection_permissions": []
 }
