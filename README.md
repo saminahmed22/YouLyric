@@ -21,3 +21,9 @@ YouTube itself does half of the job here by providing attributes for most of the
 - Adding PIP feature
 - Adding options to search for lyrics for videos that doesn't have any attributions
 - Styles customization
+
+To build this app, simply run:
+
+```
+npm run build
+```
