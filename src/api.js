@@ -1,6 +1,6 @@
 export default async function fetchLyrics(title, author) {
-  const updatedTitle = encodeURIComponent(title);
-  const updatedAuthor = encodeURIComponent(author);
+  const updatedTitle = title.split(" ").join("+");
+  const updatedAuthor = author.split(" ").join("+");
 
   const url = `https://lrclib.net/api/search?track_name=${updatedTitle}&artist_name=${updatedAuthor}`;
 
