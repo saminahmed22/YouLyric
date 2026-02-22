@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YouLyrics",
   "description": "Adds song lyrics under music videos in YouTube",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "content_scripts": [
     {
@@ -25,7 +25,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "{fe6e60c2-c616-41ac-94b4-c2a3cadab807}",
+      "id": "{dbed15b2-4f6e-4973-8a63-118a79483012}",
       "data_collection_permissions": {
         "required": ["browsingActivity", "websiteContent"],
         "optional": []
