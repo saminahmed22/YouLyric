@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "YouLyrics",
+  "name": "YouLyric",
   "description": "Adds song lyrics under music videos in YouTube",
-  "version": "1.0.1",
+  "version": "1.0.3",
 
   "content_scripts": [
     {
