@@ -25,5 +25,5 @@ YouTube itself does half of the job here by providing attributes for most of the
 To build this app, simply run:
 
 ```
-npm run build
+npm install && npm run build
 ```
