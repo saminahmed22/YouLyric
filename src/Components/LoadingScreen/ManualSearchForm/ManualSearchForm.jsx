@@ -9,7 +9,7 @@ export default function ManualSearchForm() {
 
   const [formData, setFormData] = useState({
     song_name: null,
-    author_name: null,
+    artist_name: null,
   });
 
   const handleChange = (e) => {
@@ -22,7 +22,7 @@ export default function ManualSearchForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoaded(false);
-    main(formData.song_name, formData.author_name, "manual");
+    main(formData.song_name, formData.artist_name, "manual");
   };
 
   return (
@@ -38,11 +38,11 @@ export default function ManualSearchForm() {
           required
         />
         <input
-          className={styles.authorNameField}
-          id="authorName"
-          name="author_name"
+          className={styles.artistNameField}
+          id="artistName"
+          name="artist_name"
           type="text"
-          placeholder="Author name"
+          placeholder="Artist name"
           onChange={handleChange}
           required
         />
