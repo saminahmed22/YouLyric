@@ -3,17 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 
-let observer = null;
-
-// bad solution for manual search but I'll see it later
-export function main(title, author, method = "auto") {
-  if (method !== "auto") {
-    const container = document.querySelector("#youLyricRoot");
-    if (container) {
-      container.remove();
-    }
-  }
-
+function main() {
   const container = document.createElement("div");
   container.id = "youLyricRoot";
 
@@ -22,25 +12,27 @@ export function main(title, author, method = "auto") {
 
   createRoot(container).render(
     <StrictMode>
-      <App title={title} author={author} />
+      <App />
     </StrictMode>,
   );
 }
 
-document.addEventListener("yt-navigate-start", () => {
-  const lyricDiv = document.querySelector("#youLyricRoot");
-  if (lyricDiv) {
-    lyricDiv.remove();
+// This section observes the dom, and when the condition mets it triggers the rendering of the app or remove it from dom.
+let observer = null;
+function cleanUp() {
+  const container = document.querySelector("#youLyricRoot");
+  if (container) {
+    container.remove();
     if (observer) {
       observer.disconnect();
       observer = null;
     }
   }
-});
+}
 
+// currently observing yt-navigate-finish, switch to observing yt-watch-flexy, from the very beginning, and observe to id changes.
 let currentVideoID = null;
-
-document.addEventListener("yt-navigate-finish", () => {
+function initiate() {
   const ytFlexy = document.querySelector("ytd-watch-flexy");
 
   const invokeMain = () => {
@@ -51,21 +43,8 @@ document.addEventListener("yt-navigate-finish", () => {
     }
     currentVideoID = newVideoID;
 
-    const middleRowDiv = document.querySelector("#middle-row");
-    const metadata = document.querySelector(
-      ".yt-video-attribute-view-model__metadata",
-    );
-    if (middleRowDiv && metadata) {
-      const title = document.querySelector(
-        ".yt-video-attribute-view-model__title",
-      ).textContent;
-      const author = document.querySelector(
-        ".yt-video-attribute-view-model__subtitle",
-      ).textContent;
-
-      observer.disconnect();
-      main(title, author);
-    }
+    observer.disconnect();
+    main();
   };
 
   const target = ytFlexy;
@@ -77,4 +56,7 @@ document.addEventListener("yt-navigate-finish", () => {
   observer = new MutationObserver(invokeMain);
 
   observer.observe(target, config);
-});
+}
+
+document.addEventListener("yt-navigate-start", cleanUp);
+document.addEventListener("yt-navigate-finish", initiate);
