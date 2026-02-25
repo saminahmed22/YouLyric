@@ -49,6 +49,15 @@ export default function ManualSearchForm() {
 
   return (
     <div className={styles.ManualSearchFormDiv}>
+      <button
+        className={`${styles.closeBtn} extensionBtn`}
+        title="Close"
+        onClick={() => {
+          setMount(false);
+        }}
+      >
+        <img src={closeIcon} alt="Close icon" />
+      </button>
       <form className={styles.ManualSearchForm} onSubmit={handleSubmit}>
         <input
           className={styles.songNameField}
@@ -76,20 +85,7 @@ export default function ManualSearchForm() {
           <img src={searchIcon} alt="Search icon" />
         </button>
       </form>
-
-      <div className={styles.cantFindDiv}>
-        <button
-          className={`${styles.closeBtn} extensionBtn`}
-          title="Close"
-          onClick={() => {
-            setMount(false);
-          }}
-        >
-          <img src={closeIcon} alt="Close icon" />
-        </button>
-
-        <div className={styles.cantFindMessage}>{getMessage(fetched)}</div>
-      </div>
+      <div className={styles.cantFindMessage}>{getMessage(fetched)}</div>
     </div>
   );
 }
