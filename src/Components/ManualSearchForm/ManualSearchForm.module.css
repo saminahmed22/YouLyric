@@ -1,6 +1,13 @@
+.ManualSearchFormDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .ManualSearchForm {
   display: flex;
-  align-items: center;
+
   gap: 10px;
   margin: 0 0 10px 0;
 }
@@ -18,24 +25,16 @@
   border-radius: 12px;
 }
 
-.submitBtn {
-  height: 50px;
-  width: 50px;
-
+.cantFindMessage {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px;
 
-  background-color: transparent;
-
-  border: none;
-  border-radius: 10px;
-
-  cursor: pointer;
-
-  transition: background-color 0.3s;
+  margin-bottom: 20px;
 }
 
-.submitBtn:hover {
-  background-color: rgba(255, 255, 255, 0.271);
+.closeBtn {
+  align-self: flex-end;
 }

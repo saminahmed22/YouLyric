@@ -1,0 +1,28 @@
+.header {
+  min-width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 10px 0;
+}
+
+.lyricTitle {
+  min-height: fit-content;
+  min-width: fit-content;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 1.6rem;
+  margin-left: 20px;
+}
+
+.lyricScroll {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

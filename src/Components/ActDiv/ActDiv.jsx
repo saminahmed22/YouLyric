@@ -22,7 +22,7 @@ export default function ActDiv() {
     <div className={styles.ActDiv}>
       <div className={styles.actBtnContainer}>
         <button
-          className={styles.actBtn}
+          className={`${styles.actBtn} extensionBtn`}
           title="Zoom in"
           onClick={increaseFontSize}
           disabled={fontSize >= 3}
@@ -30,7 +30,7 @@ export default function ActDiv() {
           <img src={zoomInIcon} alt="Zoom in icon" />
         </button>
         <button
-          className={styles.actBtn}
+          className={`${styles.actBtn} extensionBtn`}
           title="Zoom out"
           onClick={decreaseFontSize}
           disabled={fontSize <= 1}
@@ -39,7 +39,7 @@ export default function ActDiv() {
         </button>
 
         <button
-          className={styles.actBtn}
+          className={`${styles.actBtn} extensionBtn`}
           title="Close"
           onClick={() => {
             setMount(false);

@@ -1,38 +1,40 @@
 import { useState } from "react";
-import LoadingScreen from "./Components/LoadingScreen/LoadingScreen";
-import Lyric from "./Components/Lyric/Lyric";
 import { AppContext } from "./context";
 
-function App({ title, author }) {
-  const [loaded, setLoaded] = useState(false);
-  const [fontSize, setFontSize] = useState(1.4);
+import AppContent from "./Components/AppContent/AppContent";
+
+function App() {
   const [mount, setMount] = useState(true);
-  const [lyrics, setLyrics] = useState([]);
+  const [fetched, setFetched] = useState("fetching");
+
+  const [lyrics, setLyrics] = useState({
+    fetchedLyrics: [],
+    currentlySelectedLyrics: 0,
+    lyricsCount: 0,
+  });
+  const [fontSize, setFontSize] = useState(1.4);
 
   const app = () => {
     return (
       <div className="appDiv">
-        <AppContext
+        <AppContext.Provider
           value={{
-            loaded,
-            setLoaded,
-            fontSize,
-            setFontSize,
             mount,
             setMount,
+            fetched,
+            setFetched,
             lyrics,
             setLyrics,
+            fontSize,
+            setFontSize,
           }}
         >
-          {loaded === true ? (
-            <Lyric />
-          ) : (
-            <LoadingScreen title={title} author={author} />
-          )}
-        </AppContext>
+          <AppContent />
+        </AppContext.Provider>
       </div>
     );
   };
+
   return mount ? app() : null;
 }
 

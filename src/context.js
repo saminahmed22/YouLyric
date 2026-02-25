@@ -1,12 +1,15 @@
 import { createContext } from "react";
 
 export const AppContext = createContext({
-  loaded: false,
-  setLoaded: () => {},
-  fontSize: 1.4,
-  setFontSize: () => {},
   mount: true,
   setMount: () => {},
-  lyrics: [],
+
+  fetched: "fetching",
+  setFetched: () => {},
+
+  lyrics: {},
   setLyrics: () => {},
+
+  fontSize: 1.4,
+  setFontSize: () => {},
 });
