@@ -14,7 +14,7 @@ export default function AppContent() {
 
   useEffect(() => {
     getLyrics(setLyrics, setFetched);
-  }, [setLyrics, setFetched]); // runs once on mount
+  }, [setLyrics, setFetched]);
 
   const getContent = () => {
     if (fetched === "fetched_successfully") {
@@ -24,10 +24,8 @@ export default function AppContent() {
           <Lyric />
         </>
       );
-    } else if (fetched === "couldn't_fetch") {
+    } else if (fetched === "couldn't_fetch" || fetched === "No_metadata") {
       return <ManualSearchForm />;
-    } else if (fetched === "No_metadata") {
-      return null;
     } else {
       return <LoadingScreen />;
     }
