@@ -4,8 +4,11 @@ export const AppContext = createContext({
   mount: false,
   setMount: () => {},
 
-  fetched: "fetching",
-  setFetched: () => {},
+  videoInfo: {},
+  setVideoInfo: () => {},
+
+  status: "fetching",
+  setStatus: () => {},
 
   lyrics: {},
   setLyrics: () => {},

@@ -10,21 +10,21 @@ import ManualSearchForm from "../../Components/ManualSearchForm/ManualSearchForm
 import styles from "./AppContent.module.css";
 
 export default function AppContent() {
-  const { fetched, setLyrics, setFetched } = useContext(AppContext);
+  const { status, setStatus, setLyrics } = useContext(AppContext);
 
   useEffect(() => {
-    getLyrics(setLyrics, setFetched);
-  }, [setLyrics, setFetched]);
+    getLyrics(setLyrics, setStatus);
+  }, [setStatus, setLyrics]);
 
   const getContent = () => {
-    if (fetched === "fetched_successfully") {
+    if (status === "fetched_successfully") {
       return (
         <>
           <Header />
           <Lyric />
         </>
       );
-    } else if (fetched === "couldn't_fetch" || fetched === "No_metadata") {
+    } else if (status === "couldn't_fetch" || status === "No_metadata") {
       return <ManualSearchForm />;
     } else {
       return <LoadingScreen />;

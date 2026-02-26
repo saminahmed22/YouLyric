@@ -9,7 +9,14 @@ export default function App() {
   );
 
   const [mount, setMount] = useState(metadata);
-  const [fetched, setFetched] = useState("fetching");
+  const [videoInfo, setVideoInfo] = useState({
+    videoID: null,
+    attributed: null,
+    songTitle: null,
+    artistName: null,
+  });
+
+  const [status, setStatus] = useState("fetching");
 
   const [lyrics, setLyrics] = useState({
     fetchedLyrics: [],
@@ -42,8 +49,10 @@ export default function App() {
           value={{
             mount,
             setMount,
-            fetched,
-            setFetched,
+            videoInfo,
+            setVideoInfo,
+            status,
+            setStatus,
             lyrics,
             setLyrics,
             fontSize,

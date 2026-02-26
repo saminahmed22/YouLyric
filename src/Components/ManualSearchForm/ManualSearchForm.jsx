@@ -9,7 +9,7 @@ import closeIcon from "../../../icons/close.png";
 import styles from "./ManualSearchForm.module.css";
 
 export default function ManualSearchForm() {
-  const { setMount, setLyrics, fetched, setFetched } = useContext(AppContext);
+  const { setMount, setLyrics, status, setStatus } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     songTitle: null,
@@ -26,7 +26,7 @@ export default function ManualSearchForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    getLyrics(setLyrics, setFetched, formData);
+    getLyrics(setLyrics, setStatus, formData);
   };
 
   const getMessage = (fetchResponse) => {
@@ -85,7 +85,7 @@ export default function ManualSearchForm() {
           <img src={searchIcon} alt="Search icon" />
         </button>
       </form>
-      <div className={styles.cantFindMessage}>{getMessage(fetched)}</div>
+      <div className={styles.cantFindMessage}>{getMessage(status)}</div>
     </div>
   );
 }
