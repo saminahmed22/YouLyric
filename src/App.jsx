@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppContext } from "./context";
 
 import AppContent from "./Components/AppContent/AppContent";
 
-function App() {
-  const [mount, setMount] = useState(true);
+export default function App() {
+  const metadata = !!document.querySelector(
+    ".yt-video-attribute-view-model__metadata",
+  );
+
+  const [mount, setMount] = useState(metadata);
   const [fetched, setFetched] = useState("fetching");
 
   const [lyrics, setLyrics] = useState({
@@ -13,6 +17,23 @@ function App() {
     lyricsCount: 0,
   });
   const [fontSize, setFontSize] = useState(1.4);
+
+  useEffect(() => {
+    const ytpControls = document.querySelector(".ytp-right-controls-left");
+
+    const handler = (e) => {
+      const btn = e.target.closest(".manualSearchTriggerBtn");
+      if (!btn) return;
+
+      setMount(true);
+    };
+
+    ytpControls.addEventListener("click", handler);
+
+    return () => {
+      ytpControls.removeEventListener("click", handler);
+    };
+  }, [mount]);
 
   const app = () => {
     return (
@@ -37,5 +58,3 @@ function App() {
 
   return mount ? app() : null;
 }
-
-export default App;
