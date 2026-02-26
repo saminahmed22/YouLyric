@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 export const AppContext = createContext({
-  mount: true,
+  mount: false,
   setMount: () => {},
 
   fetched: "fetching",
