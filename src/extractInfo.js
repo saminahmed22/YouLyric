@@ -7,13 +7,13 @@ export default function extractInfo() {
     return "No_metadata";
   }
 
-  const songTitle = document.querySelector(
-    ".yt-video-attribute-view-model__title",
-  ).textContent;
+  const songTitle =
+    document.querySelector(".yt-video-attribute-view-model__title")
+      ?.textContent || "";
 
-  const artistName = document.querySelector(
-    ".yt-video-attribute-view-model__subtitle",
-  ).textContent;
+  const artistName =
+    document.querySelector(".yt-video-attribute-view-model__subtitle")
+      ?.textContent || "";
 
   return { songTitle, artistName };
 }
