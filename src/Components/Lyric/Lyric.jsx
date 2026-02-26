@@ -7,7 +7,7 @@ export default function Lyric() {
   const { lyrics, fontSize } = useContext(AppContext);
 
   const currentLyricsIndex = lyrics.currentlySelectedLyrics;
-  const currentLyrics = lyrics.fetchedLyrics[currentLyricsIndex].plainLyrics;
+  const currentLyrics = lyrics.fetchedLyrics[currentLyricsIndex];
 
   return (
     <div className={styles.contentDiv}>
