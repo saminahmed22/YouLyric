@@ -12,15 +12,14 @@ export default async function getLyrics(
 
   if (songInfo === "No_metadata") {
     setFetched("No_metadata");
+    return;
   }
 
   const response = await fetchLyrics(songInfo);
 
   if (response === "couldn't_fetch") {
     setFetched("couldn't_fetch");
-  } else {
-    filterLyrics(response);
-    setFetched("fetched_successfully");
+    return;
   }
 
   const fileredResponse = filterLyrics(response);
@@ -30,13 +29,15 @@ export default async function getLyrics(
     currentlySelectedLyrics: 0,
     lyricsCount: fileredResponse?.length ?? 0,
   });
+
+  setFetched("fetched_successfully");
 }
 
 // Fiters the empty string, random Portugese strings and duplicates
 function filterLyrics(arr) {
   const lyricArr = [];
   arr.forEach((obj) => {
-    const lyrics = obj.plainLyrics;
+    const lyrics = obj?.plainLyrics ?? "";
     const cursedPortugeses = [
       "as letras nao estao sincronizadas com a musica",
       "a letra nao esta sincronizada com a musica",
