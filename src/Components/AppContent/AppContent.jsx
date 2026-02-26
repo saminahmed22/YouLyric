@@ -24,8 +24,10 @@ export default function AppContent() {
           <Lyric />
         </>
       );
-    } else if (fetched === "couldn't_fetch" || fetched === "No_metadata") {
+    } else if (fetched === "couldn't_fetch") {
       return <ManualSearchForm />;
+    } else if (fetched === "No_metadata") {
+      return null;
     } else {
       return <LoadingScreen />;
     }
