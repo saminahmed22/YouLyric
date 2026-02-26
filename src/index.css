@@ -48,3 +48,10 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.manualSearchTriggerBtn,
+.manualSearchIconDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
