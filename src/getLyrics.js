@@ -28,7 +28,7 @@ export default async function getLyrics(
   setLyrics({
     fetchedLyrics: fileredResponse,
     currentlySelectedLyrics: 0,
-    lyricsCount: fileredResponse.length,
+    lyricsCount: fileredResponse?.length ?? 0,
   });
 }
 
@@ -42,9 +42,12 @@ function filterLyrics(arr) {
       "a letra nao esta sincronizada com a musica",
     ];
 
-    if (!cursedPortugeses.includes(lyrics) && lyrics.length > 5) {
+    if (!cursedPortugeses.includes(lyrics) && lyrics?.length > 5) {
       lyricArr.push(lyrics);
     }
   });
-  return [...new Set(lyricArr)];
+  const uniqueArr = [...new Set(lyricArr)];
+  return uniqueArr.length > 0
+    ? uniqueArr
+    : ["No lyrics are available for this track; it is likely an instrumental."];
 }
