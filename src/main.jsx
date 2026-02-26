@@ -44,6 +44,14 @@ function initiate() {
     currentVideoID = newVideoID;
 
     observer.disconnect();
+
+    const metadata = document.querySelector(
+      ".yt-video-attribute-view-model__metadata",
+    );
+    if (!metadata) {
+      cleanUp();
+      return;
+    }
     main();
   };
 
