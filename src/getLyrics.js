@@ -34,5 +34,17 @@ export default async function getLyrics(
 
 // Fiters the empty string, random Portugese strings and duplicates
 function filterLyrics(arr) {
-  return arr;
+  const lyricArr = [];
+  arr.forEach((obj) => {
+    const lyrics = obj.plainLyrics;
+    const cursedPortugeses = [
+      "as letras nao estao sincronizadas com a musica",
+      "a letra nao esta sincronizada com a musica",
+    ];
+
+    if (!cursedPortugeses.includes(lyrics) && lyrics.length > 5) {
+      lyricArr.push(lyrics);
+    }
+  });
+  return [...new Set(lyricArr)];
 }
