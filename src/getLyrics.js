@@ -48,6 +48,7 @@ function filterLyrics(arr) {
     }
   });
   const uniqueArr = [...new Set(lyricArr)];
+
   return uniqueArr.length > 0
     ? uniqueArr
     : ["No lyrics are available for this track; it is likely an instrumental."];
