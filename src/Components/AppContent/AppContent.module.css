@@ -1,4 +1,10 @@
 .appContent {
-  min-height: 100%;
-  min-width: 100%;
+  min-height: 100px;
+  min-width: 100px;
+}
+.invalidStatus {
+  height: fit-content;
+  width: fit-content;
+
+  color: crimson;
 }
