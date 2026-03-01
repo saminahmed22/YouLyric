@@ -1,15 +1,13 @@
 import { useState, useContext } from "react";
 import { AppContext } from "../../context";
 
-import getLyrics from "../../getLyrics";
-
 import searchIcon from "../../../icons/search.png";
 import closeIcon from "../../../icons/close.png";
 
 import styles from "./ManualSearchForm.module.css";
 
 export default function ManualSearchForm() {
-  const { setMount, setLyrics, status, setStatus } = useContext(AppContext);
+  const { videoInfo, setVideoInfo, setStatus } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     songTitle: null,
@@ -26,21 +24,28 @@ export default function ManualSearchForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    getLyrics(setLyrics, setStatus, formData);
+    setVideoInfo((prev) => ({
+      ...prev,
+      manuallyTyped: true,
+      songTitle: formData.songTitle,
+      artistName: formData.artistName,
+    }));
+
+    setStatus("fetching");
   };
 
-  const getMessage = (fetchResponse) => {
-    if (fetchResponse === "No_metadata") {
+  const getMessage = () => {
+    if (videoInfo.attributed) {
       return (
         <>
-          <p>Can't find metadata for this video.</p>
+          <p>{`Unable to find the lyrics :(`}</p>
           <p>please search for the lyrics manually.</p>
         </>
       );
     } else {
       return (
         <>
-          <p>{`Unable to find the lyrics :(`}</p>
+          <p>Can't find metadata for this video.</p>
           <p>please search for the lyrics manually.</p>
         </>
       );
@@ -53,7 +58,7 @@ export default function ManualSearchForm() {
         className={`${styles.closeBtn} extensionBtn`}
         title="Close"
         onClick={() => {
-          setMount(false);
+          setStatus("unmount");
         }}
       >
         <img src={closeIcon} alt="Close icon" />
@@ -85,7 +90,7 @@ export default function ManualSearchForm() {
           <img src={searchIcon} alt="Search icon" />
         </button>
       </form>
-      <div className={styles.cantFindMessage}>{getMessage(status)}</div>
+      <div className={styles.cantFindMessage}>{getMessage()}</div>
     </div>
   );
 }
