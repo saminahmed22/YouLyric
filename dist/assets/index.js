@@ -15699,9 +15699,6 @@ async function getLyrics(setLyrics, status, setStatus, videoInfo) {
   if (status !== "fetching") {
     return;
   }
-  !!document.querySelector(
-    ".yt-video-attribute-view-model__metadata"
-  );
   const isManuallyTyped = videoInfo.manuallyTyped;
   let songInfo;
   const db = getDB();
