@@ -9,25 +9,51 @@ import ManualSearchForm from "../../Components/ManualSearchForm/ManualSearchForm
 
 import styles from "./AppContent.module.css";
 
+// "fetching", Will trigger loading screen, when:
+// 1. If metadata exists
+// 2. If metadata does not exists BUT DB entry exists
+// 3. After manually searched
+
+// "manual_search", will trigger manual search form, when:
+// 1. when metadata exists but failed to fetch
+// 2. when the button is clicked but no metadata or db entry was found
+
+// "mount", will trigger rendering the app when:
+//  1.  Lyrics has been fetched sucessfully
+
+// "unmount", will trigger when div is not supposed to render:
+// 1. No metadata exists
+// 2. When the close button was pressed
+
 export default function AppContent() {
-  const { status, setStatus, setLyrics } = useContext(AppContext);
+  const { status, setStatus, setLyrics, videoInfo } = useContext(AppContext);
 
   useEffect(() => {
-    getLyrics(setLyrics, setStatus);
-  }, [setStatus, setLyrics]);
+    const runGetLyrics = async () => {
+      await getLyrics(setLyrics, status, setStatus, videoInfo);
+    };
+
+    runGetLyrics();
+  }, [status, setStatus, setLyrics, videoInfo]);
 
   const getContent = () => {
-    if (status === "fetched_successfully") {
-      return (
-        <>
-          <Header />
-          <Lyric />
-        </>
-      );
-    } else if (status === "couldn't_fetch" || status === "No_metadata") {
-      return <ManualSearchForm />;
-    } else {
-      return <LoadingScreen />;
+    switch (status) {
+      case "mount":
+        return (
+          <>
+            <Header />
+            <Lyric />
+          </>
+        );
+      case "manual_search":
+        return <ManualSearchForm />;
+      case "fetching":
+        return <LoadingScreen />;
+      default:
+        // use dedicated componet for this
+        return (
+          <p className={styles.invalidStatus}>{`Invalid status: ${status}`}</p>
+        );
     }
   };
 
