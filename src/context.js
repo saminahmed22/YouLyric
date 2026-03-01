@@ -1,9 +1,6 @@
 import { createContext } from "react";
 
 export const AppContext = createContext({
-  mount: false,
-  setMount: () => {},
-
   videoInfo: {},
   setVideoInfo: () => {},
 
