@@ -1,6 +1,10 @@
 import lyricsIcon from "../icons/lyricsIcon.png";
 
 export default function getManualSearchTriggerBtn() {
+  const exists = document.querySelector(".manualSearchTriggerBtn");
+  if (exists) {
+    return;
+  }
   const button = document.createElement("button");
   button.className =
     "manualSearchTriggerBtn ytp-autohide-fade-transition ytp-button";
