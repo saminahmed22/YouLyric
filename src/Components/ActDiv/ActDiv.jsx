@@ -8,7 +8,7 @@ import zoomInIcon from "../../../icons/zoomIn.png";
 import zoomOutIcon from "../../../icons/zoomOut.png";
 
 export default function ActDiv() {
-  const { fontSize, setFontSize, setMount } = useContext(AppContext);
+  const { fontSize, setFontSize, setStatus } = useContext(AppContext);
 
   const increaseFontSize = () => {
     setFontSize(fontSize + 0.2);
@@ -42,7 +42,7 @@ export default function ActDiv() {
           className={`${styles.actBtn} extensionBtn`}
           title="Close"
           onClick={() => {
-            setMount(false);
+            setStatus("unmount");
           }}
         >
           <img src={closeIcon} alt="Close icon" />
