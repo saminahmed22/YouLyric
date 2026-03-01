@@ -1,0 +1,28 @@
+**
+BUG:
+
+1. Observer:
+        1.  Loading the lyrics for previous song when switching to a song without metadata
+**
+
+
+**
+Features:
+
+1. PIP
+2. Options page: 
+    1. General: 
+        1. Start with: 
+            1.  Default, under video.
+            2.  Side bar.
+            3.  pip.
+        2. Auto pip on scroll to comments
+    2. Customization:
+        1.  Background color
+        2.  Background Opacity
+        3.  Default font size
+        4.  pip: 
+            1.  Opacity
+            2.  Initial position
+            3.  Initial size
+**
