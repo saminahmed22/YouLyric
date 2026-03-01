@@ -1,1 +1,226 @@
-#youLyricRoot{min-height:fit-content}.appDiv{min-height:100px;height:fit-content;width:100%;display:flex;color:silver;border:1px solid rgba(255,255,255,.3);border-radius:12px;margin-bottom:12px;cursor:default;font-size:1.2rem}.extensionBtn{height:50px;width:50px;display:flex;justify-content:center;align-items:center;background-color:transparent;border:none;border-radius:10px;cursor:pointer;transition:background-color .3s}.extensionBtn:hover{background-color:#ffffff45}.extensionBtn:disabled{opacity:.5;cursor:not-allowed}.manualSearchTriggerBtn,.manualSearchIconDiv{display:flex;justify-content:center;align-items:center}._ActDiv_b7eh3_1{max-height:100%;width:fit-content;display:flex;margin-right:10px}._actBtnContainer_b7eh3_10{display:flex;gap:10px}._header_1bg4m_1{min-width:100%;max-width:100%;display:flex;justify-content:space-between;align-items:center;margin:10px 0}._lyricTitle_1bg4m_11{min-height:fit-content;min-width:fit-content;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:1.6rem;margin-left:20px}._lyricScroll_1bg4m_24{display:flex;align-items:center;gap:5px}._contentDiv_1watd_1{min-width:100%;max-width:100%;display:flex;flex-direction:column;gap:30px}._lyricContainer_1watd_10{max-width:100%;overflow:auto}._lyricText_1watd_15{font-size:1.4rem;margin:0 20px 40px;overflow:auto}._credit_1watd_22{margin:0 0 20px 20px;opacity:.8}._credit_1watd_22 a{color:silver}._LoadingScreenDiv_1m62a_1{height:fit-content;width:100%;display:flex;align-items:center;justify-content:center;flex-direction:column}._loadingMessage_1m62a_11{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:-10px}._loadingIcon_1m62a_20{height:20px;animation:_rotation_1m62a_1 1s linear infinite;filter:brightness(0) saturate(100%) invert(86%) sepia(74%) saturate(0%) hue-rotate(245deg) brightness(104%) contrast(104%)}@keyframes _rotation_1m62a_1{0%{transform:rotate(0)}to{transform:rotate(360deg)}}._closeBtn_1m62a_37{align-self:flex-end}._ManualSearchFormDiv_vtcyp_1{display:flex;flex-direction:column;align-items:center;justify-content:center}._ManualSearchForm_vtcyp_1{display:flex;gap:10px;margin:0 0 10px}._ManualSearchFormDiv_vtcyp_1 input{height:50px;width:200px;color:#fff;background-color:transparent;border:1px solid rgba(255,255,255,.5);padding:0 0 0 10px;border-radius:12px}._cantFindMessage_vtcyp_28{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;margin-bottom:20px}._closeBtn_vtcyp_38{align-self:flex-end}._appContent_1ye5y_1{min-height:100%;min-width:100%}
+#youLyricRoot {
+  min-height: fit-content;
+}
+
+.appDiv {
+  min-height: 100px;
+  height: fit-content;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  color: silver;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+
+  margin-bottom: 12px;
+
+  cursor: default;
+
+  font-size: 1.2rem;
+}
+
+.extensionBtn {
+  height: 50px;
+  width: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: transparent;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: background-color 0.3s;
+}
+
+.extensionBtn:hover {
+  filter: brightness(0) saturate(100%) invert(16%) sepia(66%) saturate(4334%)
+    hue-rotate(353deg) brightness(108%) contrast(128%);
+}
+
+.extensionBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.manualSearchTriggerBtn,
+.manualSearchIconDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.statusDebug {
+  background-color: crimson;
+  color: white;
+  margin: 5px;
+  max-height: fit-content;
+  max-width: fit-content;
+}
+._ActDiv_b7eh3_1 {
+  max-height: 100%;
+  width: fit-content;
+
+  display: flex;
+
+  margin-right: 10px;
+}
+
+._actBtnContainer_b7eh3_10 {
+  display: flex;
+  gap: 10px;
+}
+._header_1bg4m_1 {
+  min-width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 10px 0;
+}
+
+._lyricTitle_1bg4m_11 {
+  min-height: fit-content;
+  min-width: fit-content;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 1.6rem;
+  margin-left: 20px;
+}
+
+._lyricScroll_1bg4m_24 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+._contentDiv_1watd_1 {
+  min-width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+._lyricContainer_1watd_10 {
+  max-width: 100%;
+  overflow: auto;
+}
+
+._lyricText_1watd_15 {
+  font-size: 1.4rem;
+  margin: 0 20px 40px 20px;
+
+  overflow: auto;
+}
+
+._credit_1watd_22 {
+  margin: 0 0 20px 20px;
+  opacity: 0.8;
+}
+
+._credit_1watd_22 a {
+  color: silver;
+}
+._LoadingScreenDiv_1m62a_1 {
+  height: fit-content;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+._loadingMessage_1m62a_11 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  margin-top: -10px;
+}
+
+._loadingIcon_1m62a_20 {
+  height: 20px;
+  animation: _rotation_1m62a_1 1s linear infinite;
+
+  filter: brightness(0) saturate(100%) invert(86%) sepia(74%) saturate(0%)
+    hue-rotate(245deg) brightness(104%) contrast(104%);
+}
+
+@keyframes _rotation_1m62a_1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+._closeBtn_1m62a_37 {
+  align-self: flex-end;
+}
+._ManualSearchFormDiv_vtcyp_1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+._ManualSearchForm_vtcyp_1 {
+  display: flex;
+
+  gap: 10px;
+  margin: 0 0 10px 0;
+}
+
+._ManualSearchFormDiv_vtcyp_1 input {
+  height: 50px;
+  width: 200px;
+
+  color: white;
+  background-color: transparent;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 0 0 0 10px;
+
+  border-radius: 12px;
+}
+
+._cantFindMessage_vtcyp_28 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  margin-bottom: 20px;
+}
+
+._closeBtn_vtcyp_38 {
+  align-self: flex-end;
+}
+._appContent_8nup7_1 {
+  min-height: 100px;
+  min-width: 100px;
+}
+._invalidStatus_8nup7_5 {
+  height: fit-content;
+  width: fit-content;
+
+  color: crimson;
+}
