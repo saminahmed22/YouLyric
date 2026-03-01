@@ -1,10 +1,10 @@
 export default function extractInfo() {
-  const metadata = document.querySelector(
+  const metadata = !!document.querySelector(
     ".yt-video-attribute-view-model__metadata",
   );
 
   if (!metadata) {
-    return "No_metadata";
+    return "no_metadata";
   }
 
   const songTitle =
