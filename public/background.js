@@ -10,7 +10,7 @@ export default async function fetchLyrics({ songTitle, artistName }) {
     const data = await response.json();
 
     if (!data?.length) {
-      return "couldn't_fetch";
+      return "failed";
     }
     return data;
   } catch (error) {
