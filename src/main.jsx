@@ -21,57 +21,48 @@ function main() {
   );
 }
 
-// This section observes the dom, and when the condition mets it triggers the rendering of the app or remove it from dom.
-let observer = null;
+// Initially observes the whole document till "ytd-watch-flexy" appears,
+
+function observeFlexy() {
+  const ytFlexy = document.querySelector("ytd-watch-flexy");
+  const middleRowDiv = document.querySelector("#middle-row");
+
+  if (ytFlexy && middleRowDiv) {
+    main();
+  }
+}
+
+let docObserver = null;
+function initiateFlexyObserver() {
+  const flexyTarget = document.querySelector("ytd-watch-flexy");
+
+  if (flexyTarget) {
+    docObserver.disconnect();
+    docObserver = null;
+
+    const flexyConfig = {
+      attributes: true,
+      attributeFilter: ["video-id"],
+    };
+
+    const flexyObserver = new MutationObserver(observeFlexy);
+    flexyObserver.observe(flexyTarget, flexyConfig);
+  }
+}
+
+const docTarget = document;
+const docConfig = {
+  childList: true,
+  subtree: true,
+};
+
+docObserver = new MutationObserver(initiateFlexyObserver);
+docObserver.observe(docTarget, docConfig);
+
 function cleanUp() {
   const container = document.querySelector("#youLyricRoot");
   if (container) {
     container.remove();
-    if (observer) {
-      observer.disconnect();
-      observer = null;
-    }
-  }
-
-  const manualBtn = document.querySelector(".manualSearchTriggerBtn");
-  if (manualBtn) {
-    manualBtn.remove();
   }
 }
-
-// currently observing yt-navigate-finish, switch to observing yt-watch-flexy, from the very beginning, and observe to id changes.
-let currentVideoID = null;
-function initiate() {
-  const ytFlexy = document.querySelector("ytd-watch-flexy");
-
-  const invokeMain = () => {
-    const newVideoID = ytFlexy.getAttribute("video-id");
-
-    if (currentVideoID === newVideoID) {
-      return;
-    }
-    currentVideoID = newVideoID;
-
-    observer.disconnect();
-
-    main();
-  };
-
-  const target = ytFlexy;
-  const config = {
-    attributes: true,
-    attributeFilter: ["video-id"],
-  };
-
-  observer = new MutationObserver(invokeMain);
-
-  observer.observe(target, config);
-}
-
 document.addEventListener("yt-navigate-start", cleanUp);
-document.addEventListener("yt-navigate-finish", initiate);
-// Add later in the description and readme
-// Enhancer for YouTube™ is a third-party extension and is not affiliated with YouTube.
-// YouTube is a trademark of Google LLC. Use of this trademark is subject to Google Permissions.
-
-// When I go from a song which has metadata to a song that doesn't have one, it keeps he lyrics for some reason
