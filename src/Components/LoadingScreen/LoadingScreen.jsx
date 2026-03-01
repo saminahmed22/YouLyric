@@ -7,7 +7,7 @@ import closeIcon from "../../../icons/close.png";
 import styles from "./LoadingScreen.module.css";
 
 export default function LoadingScreen() {
-  const { setMount } = useContext(AppContext);
+  const { setStatus } = useContext(AppContext);
 
   const loadingScreenContent = () => {
     return (
@@ -16,7 +16,7 @@ export default function LoadingScreen() {
           className={`${styles.closeBtn} extensionBtn`}
           title="Close"
           onClick={() => {
-            setMount(false);
+            setStatus("unmount");
           }}
         >
           <img src={closeIcon} alt="Close icon" />
