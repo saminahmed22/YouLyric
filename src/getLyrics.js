@@ -16,15 +16,6 @@ export default async function getLyrics(
     return;
   }
 
-  const metadata = !!document.querySelector(
-    ".yt-video-attribute-view-model__metadata",
-  );
-
-  if (!metadata) {
-    setStatus("manual_search");
-    return;
-  }
-
   const isManuallyTyped = videoInfo.manuallyTyped;
 
   let songInfo;
@@ -43,11 +34,15 @@ export default async function getLyrics(
       : extractInfo();
   }
 
+  if (songInfo === "no_metadata") {
+    setStatus("manual_search");
+    return;
+  }
+
   // When the manual searching button gets clicked, it will firstly go through the normal fetching process,
   // but if it can't find the metadata or an entry in db(which is checked before this if statement),
   // it will trigger the manual search
 
-  console.log(songInfo);
   const response = await fetchLyrics(songInfo);
 
   // When the fetching process fails, due to the metadata having junk it in, or not having a metadata at all,
