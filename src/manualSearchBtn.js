@@ -1,4 +1,4 @@
-import lyricsIcon from "../icons/lyricsIcon.png";
+import lyricsIcon from "../icons/lyricsIcon.svg";
 
 export default function getManualSearchTriggerBtn() {
   const exists = document.querySelector(".manualSearchTriggerBtn");
@@ -11,10 +11,12 @@ export default function getManualSearchTriggerBtn() {
   button.title = "Manually search for the lyrics";
   button.setAttribute("aria-label", "Manually search for the lyrics");
   button.tabIndex = -1;
+  button.draggable = false;
 
   const img = document.createElement("img");
   img.src = lyricsIcon;
   img.alt = "Manual search icon";
+  img.draggable = false;
 
   const iconDiv = document.createElement("div");
   iconDiv.className = "manualSearchIconDiv";
