@@ -7,6 +7,7 @@
 
 .ManualSearchForm {
   display: flex;
+  align-items: center;
 
   gap: 10px;
   margin: 0 0 10px 0;
@@ -25,6 +26,11 @@
   border-radius: 12px;
 }
 
+.inputsDiv {
+  display: flex;
+  gap: 10px;
+}
+
 .cantFindMessage {
   display: flex;
   flex-direction: column;
@@ -37,4 +43,14 @@
 
 .closeBtn {
   align-self: flex-end;
+}
+
+@container mainContainer (max-width: 600px) {
+  .inputsDiv {
+    flex-direction: column;
+  }
+}
+
+.cantFindMessage p {
+  text-align: center;
 }
