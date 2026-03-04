@@ -1,0 +1,108 @@
+.OptionsPageDiv {
+  height: fit-content !important;
+  margin-left: 10px;
+  overflow: auto;
+}
+
+.optionSection {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  /* gap: 10px; */
+}
+
+.optionSection,
+.optionsGroup,
+.option {
+  margin: 0 0 10px 10px;
+}
+
+.optionsGroupTitle {
+  margin-bottom: 10px;
+}
+
+.option {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.startWithSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.startWithBtns {
+  display: flex;
+}
+
+.OptionsPageDiv button {
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+}
+
+.OptionsPageDiv input[type="number"] {
+  padding: 0 5px;
+}
+
+.OptionsPageDiv input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.startWithBtn {
+  width: fit-content;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.493);
+
+  color: white;
+
+  margin: 10px;
+}
+
+.buttonIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.fontSizeInput,
+.pipSizeInput,
+.pipPositionInput {
+  height: 30px;
+  width: 50px;
+}
+
+.selectedStartWith,
+.selectedStartWith img {
+  color: #dc032e !important;
+  border-color: #dc032e !important;
+
+  filter: brightness(0) saturate(100%) invert(10%) sepia(87%) saturate(6177%)
+    hue-rotate(346deg) brightness(93%) contrast(104%);
+}
+
+.selectedStartWith:hover,
+.selectedStartWith img {
+  color: #ad0023 !important;
+  border-color: #ad0023 !important;
+
+  filter: brightness(0) saturate(100%) invert(10%) sepia(57%) saturate(7011%)
+    hue-rotate(340deg) brightness(97%) contrast(104%);
+}
+
+.selectedStartWith:active,
+.selectedStartWith img {
+  color: white !important;
+  border-color: white !important;
+
+  filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%)
+    hue-rotate(132deg) brightness(108%) contrast(101%);
+}
