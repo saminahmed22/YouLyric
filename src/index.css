@@ -13,20 +13,9 @@ html {
 }
 
 .appDiv {
-  height: fit-content;
-  min-height: 120px;
-  max-height: fit-content;
-
-  min-width: fit-content;
-  width: 100%;
-  max-width: 100%;
-
   display: flex;
   flex-direction: column;
 
-  color: silver;
-
-  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
 
   margin-bottom: 12px;
@@ -37,37 +26,34 @@ html {
 
   container-type: inline-size;
   container-name: mainContainer;
+
+  overflow: auto;
+}
+
+.appDivSidebar {
+  min-height: 120px;
+  height: fit-content;
+
+  min-width: 100%;
+}
+.addDivDescription {
+  min-height: 120px;
+  height: fit-content;
+
+  min-width: 100%;
 }
 
 .appDivPIP {
-  position: fixed;
-
-  z-index: 1000000000000;
-
   min-height: 120px;
   height: fit-content;
   max-height: fit-content;
 
   min-width: 500px;
-  width: 500px;
   max-height: 500px;
 
-  display: flex;
-  flex-direction: column;
+  position: fixed;
 
-  background-color: #111111;
-
-  color: silver;
-
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-
-  cursor: default;
-
-  font-size: 1.2rem;
-
-  container-type: inline-size;
-  container-name: mainContainer;
+  z-index: 1000000000000;
 }
 
 .extensionBtn {
