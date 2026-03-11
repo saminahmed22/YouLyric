@@ -1,8 +1,6 @@
 .OptionsPageDiv {
   height: fit-content;
-  max-height: 430px;
   margin-left: 10px;
-  overflow: auto;
 }
 
 .optionSection {
