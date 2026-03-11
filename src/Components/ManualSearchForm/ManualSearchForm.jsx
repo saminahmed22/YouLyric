@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import { AppContext } from "../../context";
 
 import searchIcon from "../../../icons/search.png";
-import closeIcon from "../../../icons/close.png";
 
 import styles from "./ManualSearchForm.module.css";
 
@@ -54,34 +53,27 @@ export default function ManualSearchForm() {
 
   return (
     <div className={styles.ManualSearchFormDiv}>
-      <button
-        className={`${styles.closeBtn} extensionBtn`}
-        title="Close"
-        onClick={() => {
-          setStatus("unmount");
-        }}
-      >
-        <img src={closeIcon} alt="Close icon" />
-      </button>
       <form className={styles.ManualSearchForm} onSubmit={handleSubmit}>
-        <input
-          className={styles.songNameField}
-          id="songName"
-          name="songTitle"
-          type="text"
-          placeholder="Song title"
-          onChange={handleChange}
-          required
-        />
-        <input
-          className={styles.artistNameField}
-          id="artistName"
-          name="artistName"
-          type="text"
-          placeholder="Artist name"
-          onChange={handleChange}
-          required
-        />
+        <div className={styles.inputsDiv}>
+          <input
+            className={styles.songNameField}
+            id="songName"
+            name="songTitle"
+            type="text"
+            placeholder="Song title"
+            onChange={handleChange}
+            required
+          />
+          <input
+            className={styles.artistNameField}
+            id="artistName"
+            name="artistName"
+            type="text"
+            placeholder="Artist name"
+            onChange={handleChange}
+            required
+          />
+        </div>
         <button
           className={`${styles.submitBtn} extensionBtn`}
           type="submit"
