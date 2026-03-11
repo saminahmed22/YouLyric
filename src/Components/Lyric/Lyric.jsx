@@ -9,12 +9,15 @@ export default function Lyric() {
   const currentLyricsIndex = lyrics.currentlySelectedLyrics;
   const currentLyrics = lyrics.fetchedLyrics[currentLyricsIndex];
 
+  // When docked in sidebar, it will change height based on video element's height as it shrinks when the window shrinks too.
   useEffect(() => {
     const currentDock = settings.currentDock;
     const lyricsText = document.querySelector(".lyricsTextPre");
 
     if (currentDock !== "sidebar") {
-      if (pip && lyricsText) {
+      if (currentDock === "description") {
+        lyricsText.style.maxHeight = "500px";
+      } else {
         lyricsText.style.maxHeight = "350px";
       }
       return;
