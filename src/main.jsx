@@ -5,18 +5,50 @@ import App from "./App.jsx";
 
 import getManualSearchTriggerBtn from "./manualSearchBtn.js";
 
-function main() {
+// Update startwithpip to false
+const defaultSettings = {
+  autoStart: true,
+  startWith: "description",
+  startWithPip: false,
+  currentDock: "description",
+
+  fontSize: 1.4,
+
+  fontColor: "rgb(134,166,220)",
+  backgroundColor: "rgb(8,18,33)",
+  borderColor: "rgb(134,166,220)",
+
+  pipFontColor: "rgb(134,166,220)",
+  pipBackgroundColor: "rgba(6,2,18,0.97)",
+  pipBorderColor: "rgb(134,166,220)",
+  pipPosition: { top: "10%", right: "50%" },
+};
+
+function getSettings() {
+  const stored = localStorage.getItem("youLyricSettings");
+  if (stored) return JSON.parse(stored);
+
+  localStorage.setItem("youLyricSettings", JSON.stringify(defaultSettings));
+  return defaultSettings;
+}
+
+function main(getSettings) {
   getManualSearchTriggerBtn();
 
   const container = document.createElement("div");
   container.id = "youLyricRoot";
 
-  const middleRowDiv = document.querySelector("#middle-row");
-  middleRowDiv.appendChild(container);
+  const settingObject = getSettings();
+  const startWithSetting = settingObject.startWith;
+
+  let targetDiv = document.querySelector(
+    startWithSetting === "description" ? "#middle-row" : "#secondary",
+  );
+  targetDiv.insertBefore(container, targetDiv.firstChild);
 
   createRoot(container).render(
     <StrictMode>
-      <App />
+      <App settingObject={settingObject} />
     </StrictMode>,
   );
 }
@@ -28,7 +60,7 @@ function observeFlexy() {
   const middleRowDiv = document.querySelector("#middle-row");
 
   if (ytFlexy && middleRowDiv) {
-    main();
+    main(getSettings);
   }
 }
 
