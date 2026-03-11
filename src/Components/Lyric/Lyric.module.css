@@ -12,18 +12,41 @@
   overflow: auto;
 }
 
-.lyricText {
+.lyricsText {
   font-size: 1.4rem;
-  margin: 0 20px 40px 20px;
+  margin: 0 20px 20px 20px;
+
+  max-height: 500px;
+
+  overflow: auto;
+}
+
+.lyricsTextPIP {
+  font-size: 1.4rem;
+  margin: 0 20px 20px 20px;
+
+  max-height: 350px;
 
   overflow: auto;
 }
 
 .credit {
+  display: flex;
+  gap: 5px;
+
   margin: 0 0 20px 20px;
   opacity: 0.8;
+
+  font-size: 1.2rem !important;
 }
 
 .credit a {
   color: silver;
+}
+
+@container mainContainer (max-width: 600px) {
+  .credit {
+    display: flex;
+    flex-direction: column;
+  }
 }
