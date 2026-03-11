@@ -97,10 +97,7 @@ export default function App({ settingObject }) {
     localStorage.setItem("youLyricSettings", JSON.stringify(settings));
   }, [settings]);
 
-  const previousDock = useRef(settings.currentDock);
   useEffect(() => {
-    if (previousDock.current !== "sidebar") return;
-
     const changeDock = () => {
       const width = window.innerWidth;
 
@@ -111,6 +108,10 @@ export default function App({ settingObject }) {
         const targetDiv = document.getElementById("middle-row");
         targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
 
+        if (pip) {
+          setPip(false);
+        }
+
         setSettings((prev) => ({
           ...prev,
           currentDock: "description",
@@ -119,13 +120,20 @@ export default function App({ settingObject }) {
         const youLyricRoot = document.getElementById("youLyricRoot");
         youLyricRoot.remove();
 
-        const targetDiv = document.getElementById("secondary");
+        let targetDiv;
+        if (settings.startWith === "sidebar") {
+          targetDiv = document.getElementById("secondary");
+        } else {
+          targetDiv = document.getElementById("middle-row");
+        }
         targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
 
-        setSettings((prev) => ({
-          ...prev,
-          currentDock: "sidebar",
-        }));
+        if (!pip) {
+          setSettings((prev) => ({
+            ...prev,
+            currentDock: prev.startWith,
+          }));
+        }
       }
     };
 
@@ -134,7 +142,7 @@ export default function App({ settingObject }) {
     return () => {
       window.removeEventListener("resize", changeDock);
     };
-  }, [settings]);
+  }, [settings, pip]);
 
   const appDivRef = useRef(null);
   useEffect(() => {
@@ -158,7 +166,7 @@ export default function App({ settingObject }) {
   const app = () => {
     return (
       <div
-        className={pip ? "appDivPIP" : "appDiv"}
+        className={`appDiv ${pip ? "appDivPIP" : settings.currentDock === "sidebar" ? "appDivSidebar" : "addDivDescription"}`}
         style={
           pip
             ? {
