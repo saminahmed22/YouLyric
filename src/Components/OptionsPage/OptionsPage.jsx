@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../../context";
-import { ColorPicker } from "antd";
+
+import ColorPicker from "../ColorPicker/ColorPicker";
 
 import description from "../../../icons/description.png";
 import sidebar from "../../../icons/sidebar.png";
@@ -9,38 +10,38 @@ import styles from "./OptionsPage.module.css";
 
 export default function OptionsPage() {
   const { settings, setSettings } = useContext(AppContext);
-  const prevSelected = settings.startWith;
 
-  const getColorOption = (className, title) => {
-    return (
-      <div className={`${styles.option} ${styles.popOverDiv}`}>
-        <label htmlFor={className}>{title}:</label>
-        <ColorPicker
-          styles={{
-            popup: {
-              root: {
-                zIndex: 5000,
-              },
-            },
-          }}
-          className={styles.colorPicker}
-          id={className}
-          name={className}
-          value={settings[className]}
-          onChange={(color, cssString) =>
-            setSettings((prev) => ({
-              ...prev,
-              [className]: cssString,
-            }))
-          }
-        />
-      </div>
-    );
+  const getColorOptions = (array) => {
+    return array.map((optionInfo) => {
+      const optionClassName = optionInfo[0];
+      const title = optionInfo[1];
+
+      return (
+        <div className={`${styles.option} ${styles.popOverDiv}`}>
+          <label htmlFor={optionClassName}>{title}:</label>
+          <ColorPicker
+            color={settings[optionClassName]}
+            className={styles.colorPicker}
+            id={optionClassName}
+            name={optionClassName}
+            onChange={(color) =>
+              setSettings((prev) => ({
+                ...prev,
+                [optionClassName]: color,
+              }))
+            }
+          />
+        </div>
+      );
+    });
   };
 
   // There are 2 grouping for the options, options section, option group and then options.
   return (
-    <div className={styles.OptionsPageDiv}>
+    <div
+      className={styles.OptionsPageDiv}
+      style={{ fontSize: `${settings.fontSize}rem` }}
+    >
       <div className={`${styles.generalSection} ${styles.optionSection}`}>
         <h3 className={styles.optionsGroupTitle}>General options:</h3>
         <div className={` ${styles.optionsGroup} ${styles.option}`}>
@@ -62,10 +63,10 @@ export default function OptionsPage() {
           <h4>Start with:</h4>
           <div className={styles.startWithBtns}>
             <button
-              className={`${styles.startWithBtn} extensionBtn ${prevSelected === "description" && styles.selectedStartWith}`}
+              className={`${styles.startWithBtn} extensionBtn ${settings.startWith === "description" && styles.selectedStartWith}`}
               title="Start with description"
               onClick={() => {
-                if (prevSelected === "description") {
+                if (settings.startWith === "description") {
                   return;
                 }
 
@@ -87,10 +88,10 @@ export default function OptionsPage() {
             </button>
 
             <button
-              className={`${styles.startWithBtn} extensionBtn ${prevSelected === "sidebar" && styles.selectedStartWith}`}
+              className={`${styles.startWithBtn} extensionBtn ${settings.startWith === "sidebar" && styles.selectedStartWith}`}
               title="Start with sidebar"
               onClick={() => {
-                if (prevSelected === "sidebar") {
+                if (settings.startWith === "sidebar") {
                   return;
                 }
 
@@ -126,42 +127,18 @@ export default function OptionsPage() {
           />
           <label for="autoPIPOnStart">Auto PIP on start?</label>
         </div>
-        <div
-          className={`${styles.pipCheckboxGroup} ${styles.optionsGroup} ${styles.option}`}
-        >
-          <input
-            type="checkbox"
-            id="autoPIP"
-            name="autoPIP"
-            checked={settings.autoPip}
-            onChange={(e) => {
-              setSettings((prev) => ({
-                ...prev,
-                autoPip: e.target.checked,
-              }));
-            }}
-          />
-          <label for="autoPIP">Auto PIP when scrolling to the comments?</label>
-        </div>
       </div>
       <div className={`${styles.customizationSection} ${styles.optionSection}`}>
         <h3 className={styles.optionsGroupTitle}>Customization options:</h3>
         <div className={styles.optionsGroup}>
-          <h4>Background:</h4>
-          {getColorOption("backgroundColor", "Background color")}
-          {getColorOption("borderColor", "Border color")}
-        </div>
-
-        <div className={styles.optionsGroup}>
-          <h4>Font:</h4>
-          {getColorOption("fontColor", "Font color")}
-        </div>
-
-        <div className={styles.optionsGroup}>
-          <h4>PIP:</h4>
-          {getColorOption("pipBackground", "PIP background color")}
-          {getColorOption("pipFontColor", "PIP font color")}
-          {getColorOption("pipBorderColor", "PIP border color")}
+          {getColorOptions([
+            ["fontColor", "Font color"],
+            ["backgroundColor", "Background color"],
+            ["borderColor", "Border color"],
+            ["pipFontColor", "PIP font color"],
+            ["pipBackgroundColor", "PIP background color"],
+            ["pipBorderColor", "PIP border color"],
+          ])}
         </div>
       </div>
     </div>
