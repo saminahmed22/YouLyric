@@ -4,7 +4,7 @@ import { AppContext } from "../../context";
 import styles from "./Lyric.module.css";
 
 export default function Lyric() {
-  const { lyrics, fontSize, settings } = useContext(AppContext);
+  const { lyrics, fontSize, settings, pip } = useContext(AppContext);
 
   const currentLyricsIndex = lyrics.currentlySelectedLyrics;
   const currentLyrics = lyrics.fetchedLyrics[currentLyricsIndex];
@@ -12,27 +12,40 @@ export default function Lyric() {
   useEffect(() => {
     const currentDock = settings.currentDock;
     const lyricsText = document.querySelector(".lyricsTextPre");
-    const video = document.querySelector("video");
-    const height = video.clientHeight;
-    const textMaxHeight = height - 149;
 
-    if (currentDock === "sidebar") {
-      lyricsText.style.setProperty(
-        "max-height",
-        `${textMaxHeight}px`,
-        "important",
-      );
+    if (currentDock !== "sidebar") {
+      if (pip && lyricsText) {
+        lyricsText.style.maxHeight = "350px";
+      }
+      return;
     }
-  }, [settings.currentDock, settings.pipSize]);
+
+    const video = document.querySelector("video");
+    if (!video) return;
+
+    const callback = (entries) => {
+      const entry = entries[0];
+      const { height } = entry.contentRect;
+      const textMaxHeight = height - 148;
+
+      lyricsText.style.maxHeight = `${textMaxHeight}px`;
+    };
+
+    const observer = new ResizeObserver(callback);
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [settings.currentDock, pip]);
 
   return (
     <div className={styles.contentDiv}>
       <div className={styles.lyricContainer}>
         <pre
-          className={`${settings.currentDock === "PIP" ? styles.lyricsTextPIP : styles.lyricsText}  lyricsTextPre`}
+          className={`lyricsTextPre ${pip ? styles.lyricsTextPIP : styles.lyricsText}`}
           style={{
             fontSize: `${fontSize}rem`,
-            maxHeight: settings.pipSize.height - 149,
           }}
         >
           {currentLyrics}
@@ -44,9 +57,13 @@ export default function Lyric() {
               href="https://lrclib.net/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: settings.fontColor,
-              }}
+              style={
+                pip
+                  ? { color: settings.pipFontColor }
+                  : {
+                      color: settings.fontColor,
+                    }
+              }
             >
               LRCLIB
             </a>
@@ -59,9 +76,13 @@ export default function Lyric() {
               href="https://github.com/tranxuanthang/lrclib#donation"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: settings.fontColor,
-              }}
+              style={
+                pip
+                  ? { color: settings.pipFontColor }
+                  : {
+                      color: settings.fontColor,
+                    }
+              }
             >
               donation
             </a>
