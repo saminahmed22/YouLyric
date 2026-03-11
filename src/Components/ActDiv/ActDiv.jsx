@@ -45,10 +45,6 @@ export default function ActDiv() {
         {status === "mount" && (
           <div className={styles.zoomBtns}>
             <button
-              style={{
-                color: settings.fontColor,
-                borderColor: settings.fontColor,
-              }}
               className={`${styles.actBtn} extensionBtn`}
               title="Zoom in"
               onClick={increaseFontSize}
@@ -59,10 +55,6 @@ export default function ActDiv() {
             </button>
 
             <button
-              style={{
-                color: settings.fontColor,
-                borderColor: settings.fontColor,
-              }}
               className={`${styles.actBtn} extensionBtn`}
               title="Zoom out"
               onClick={decreaseFontSize}
@@ -76,34 +68,28 @@ export default function ActDiv() {
 
         {(status === "mount" || status === "options") && (
           <>
-            <button
-              style={{
-                color: settings.fontColor,
-                borderColor: settings.fontColor,
-              }}
-              className={`${styles.actBtn} extensionBtn`}
-              title={pip ? "PIP out" : "PIP out"}
-              onClick={() => {
-                setSettings((prev) => ({
-                  ...prev,
-                  currentDock: pip ? prev.startWith : "PIP",
-                }));
-                setPip(!pip);
-              }}
-              draggable={false}
-            >
-              <img
-                src={pip ? pipInIcon : pipOutIcon}
-                alt={pip ? "PIP out icon" : "PIP out icon"}
+            {window.innerWidth >= 650 && (
+              <button
+                className={`${styles.actBtn} extensionBtn`}
+                title={pip ? "PIP out" : "PIP out"}
+                onClick={() => {
+                  setSettings((prev) => ({
+                    ...prev,
+                    currentDock: pip ? prev.startWith : "PIP",
+                  }));
+                  setPip((prev) => !prev);
+                }}
                 draggable={false}
-              />
-            </button>
+              >
+                <img
+                  src={pip ? pipInIcon : pipOutIcon}
+                  alt={pip ? "PIP out icon" : "PIP out icon"}
+                  draggable={false}
+                />
+              </button>
+            )}
 
             <button
-              style={{
-                color: settings.fontColor,
-                borderColor: settings.fontColor,
-              }}
               className={`${styles.actBtn} extensionBtn`}
               title={status === "options" ? "Lyrics" : "Options"}
               onClick={() => {
