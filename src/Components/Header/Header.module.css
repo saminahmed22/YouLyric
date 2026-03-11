@@ -1,4 +1,5 @@
 .header {
+  max-height: 60px;
   min-width: 100%;
   max-width: 100%;
   display: flex;
@@ -8,7 +9,7 @@
   margin: 10px 0;
 }
 
-.lyricTitle {
+.headerTitle {
   min-height: fit-content;
   min-width: fit-content;
 
@@ -25,4 +26,32 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.headerTitleText,
+.lyricsVariationText {
+  user-select: none;
+}
+
+.lyricsVariationText {
+  cursor: pointer;
+}
+
+@container mainContainer (max-width: 600px) {
+  .headerTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+
+    font-size: 1.6rem;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+
+  .headerTitle button {
+    height: 20px;
+    width: 20px;
+  }
 }
