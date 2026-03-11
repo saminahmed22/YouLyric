@@ -6,6 +6,7 @@ import Lyric from "../../Components/Lyric/Lyric";
 import getLyrics from "../../getLyrics";
 import LoadingScreen from "../../Components/LoadingScreen/LoadingScreen";
 import ManualSearchForm from "../../Components/ManualSearchForm/ManualSearchForm";
+import OptionsPage from "../OptionsPage/OptionsPage";
 
 import styles from "./AppContent.module.css";
 
@@ -18,15 +19,19 @@ import styles from "./AppContent.module.css";
 // 1. when metadata exists but failed to fetch
 // 2. when the button is clicked but no metadata or db entry was found
 
-// "mount", will trigger rendering the app when:
-//  1.  Lyrics has been fetched sucessfully
+// "mount", will trigger rendering the app, when:
+//  1. Lyrics has been fetched sucessfully
 
-// "unmount", will trigger when div is not supposed to render:
+// "options" will trigger options pages, when:
+//  1. the option button gets clicked
+
+// "unmount", will trigger when div is not supposed to render, usually when:
 // 1. No metadata exists
 // 2. When the close button was pressed
 
 export default function AppContent() {
-  const { status, setStatus, setLyrics, videoInfo } = useContext(AppContext);
+  const { status, setStatus, setLyrics, videoInfo, settings, pip } =
+    useContext(AppContext);
 
   useEffect(() => {
     const runGetLyrics = async () => {
@@ -34,28 +39,29 @@ export default function AppContent() {
     };
 
     runGetLyrics();
-  }, [status, setStatus, setLyrics, videoInfo]);
+  }, [status, setStatus, setLyrics, videoInfo, settings, pip]);
 
   const getContent = () => {
     switch (status) {
       case "mount":
-        return (
-          <>
-            <Header />
-            <Lyric />
-          </>
-        );
+        return <Lyric />;
       case "manual_search":
         return <ManualSearchForm />;
       case "fetching":
         return <LoadingScreen />;
+      case "options":
+        return <OptionsPage />;
       default:
-        // use dedicated componet for this
         return (
           <p className={styles.invalidStatus}>{`Invalid status: ${status}`}</p>
         );
     }
   };
 
-  return <div className={styles.appContent}>{getContent()}</div>;
+  return (
+    <div className={`${styles.appContent} appContentDiv`}>
+      <Header />
+      {getContent()}
+    </div>
+  );
 }
