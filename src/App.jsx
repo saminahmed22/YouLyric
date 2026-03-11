@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AppContext } from "./context";
-// import { useLiveQuery } from "dexie-react-hooks";
 import AppContent from "./Components/AppContent/AppContent";
 import getDB from "./indexedDB";
 import extractInfo from "./extractInfo";
@@ -21,7 +20,7 @@ import extractInfo from "./extractInfo";
 // 1. No metadata exists
 // 2. When the close button was pressed
 
-export default function App() {
+export default function App({ settingObject }) {
   const metadata = !!document.querySelector(
     ".yt-video-attribute-view-model__metadata",
   );
@@ -39,7 +38,13 @@ export default function App() {
     artistName: artistName,
   });
 
-  const [status, setStatus] = useState(metadata ? "fetching" : "unmount");
+  const [settings, setSettings] = useState({
+    ...settingObject,
+    currentDock: settingObject.startWithPip ? "PIP" : settingObject.startWith,
+  });
+  const [status, setStatus] = useState(
+    settings.autoStart ? (metadata ? "fetching" : "unmount") : "unmount",
+  );
 
   const [lyrics, setLyrics] = useState({
     fetchedLyrics: [],
@@ -47,7 +52,9 @@ export default function App() {
     lyricsCount: 0,
   });
 
-  const [fontSize, setFontSize] = useState(1.4);
+  const [fontSize, setFontSize] = useState(settings.fontSize);
+
+  const [pip, setPip] = useState(settings.startWithPip);
 
   // this block is responsible for two tasks,
   // 1. check for the db entry on inital run
@@ -57,20 +64,19 @@ export default function App() {
       const db = getDB();
       const record = await db.videos.get(getVideoID);
       if (record) {
-        console.log("IN app.jsx use effect");
         setStatus("fetching");
       }
     };
 
     run();
+  }, [getVideoID]);
 
+  useEffect(() => {
     const ytpControls = document.querySelector(".ytp-right-controls-left");
 
     const handler = async (e) => {
       const appDivMount = !!document.querySelector(".appDiv");
-      if (appDivMount) {
-        return;
-      }
+      if (appDivMount) return;
 
       const btn = e.target.closest(".manualSearchTriggerBtn");
       if (!btn) return;
@@ -80,17 +86,96 @@ export default function App() {
 
       setStatus(record || metadata ? "fetching" : "manual_search");
     };
-
     ytpControls.addEventListener("click", handler);
 
     return () => {
       ytpControls.removeEventListener("click", handler);
     };
-  }, [getVideoID, metadata]);
+  }, [getVideoID, metadata, settings, settingObject]);
+
+  useEffect(() => {
+    localStorage.setItem("youLyricSettings", JSON.stringify(settings));
+  }, [settings]);
+
+  const previousDock = useRef(settings.currentDock);
+  useEffect(() => {
+    if (previousDock.current !== "sidebar") return;
+
+    const changeDock = () => {
+      const width = window.innerWidth;
+
+      if (width <= 1120) {
+        const youLyricRoot = document.getElementById("youLyricRoot");
+        youLyricRoot.remove();
+
+        const targetDiv = document.getElementById("middle-row");
+        targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
+
+        setSettings((prev) => ({
+          ...prev,
+          currentDock: "description",
+        }));
+      } else if (width > 1120) {
+        const youLyricRoot = document.getElementById("youLyricRoot");
+        youLyricRoot.remove();
+
+        const targetDiv = document.getElementById("secondary");
+        targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
+
+        setSettings((prev) => ({
+          ...prev,
+          currentDock: "sidebar",
+        }));
+      }
+    };
+
+    window.addEventListener("resize", changeDock);
+
+    return () => {
+      window.removeEventListener("resize", changeDock);
+    };
+  }, [settings]);
+
+  const appDivRef = useRef(null);
+  useEffect(() => {
+    if (!appDivRef.current) return;
+
+    const appDiv = appDivRef.current;
+
+    const onMouseDown = () => {
+      console.log("Hello");
+    };
+
+    appDiv.addEventListener("mousedown", onMouseDown);
+
+    const cleanUP = () => {
+      appDiv.removeEventListener("mousedown", onMouseDown);
+    };
+
+    return cleanUP;
+  }, []);
 
   const app = () => {
     return (
-      <div className="appDiv">
+      <div
+        className={pip ? "appDivPIP" : "appDiv"}
+        style={
+          pip
+            ? {
+                color: settings.pipFontColor,
+                backgroundColor: settings.pipBackgroundColor,
+                borderColor: settings.pipBorderColor,
+                top: settings.pipPosition.top,
+                right: settings.pipPosition.right,
+              }
+            : {
+                color: settings.fontColor,
+                backgroundColor: settings.backgroundColor,
+                borderColor: settings.borderColor,
+              }
+        }
+        ref={appDivRef}
+      >
         <AppContext.Provider
           value={{
             videoInfo,
@@ -101,6 +186,10 @@ export default function App() {
             setLyrics,
             fontSize,
             setFontSize,
+            settings,
+            setSettings,
+            pip,
+            setPip,
           }}
         >
           <AppContent />
