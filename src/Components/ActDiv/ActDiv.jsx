@@ -68,7 +68,7 @@ export default function ActDiv() {
 
         {(status === "mount" || status === "options") && (
           <>
-            {window.innerWidth >= 650 && (
+            {window.innerWidth >= 1120 && (
               <button
                 className={`${styles.actBtn} extensionBtn`}
                 title={pip ? "PIP out" : "PIP out"}
