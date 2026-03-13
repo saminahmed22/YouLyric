@@ -37,6 +37,20 @@
   cursor: pointer;
 }
 
+.headerPIP {
+  margin-top: 0;
+}
+
+.headerPIP:hover:not(.extensionBtn) {
+  cursor: grab;
+  backdrop-filter: blur(12px) brightness(1.5);
+}
+
+.headerPIP:active:not(.extensionBtn) {
+  cursor: grabbing;
+  backdrop-filter: blur(12px) brightness(2.5);
+}
+
 @container mainContainer (max-width: 600px) {
   .headerTitle {
     display: flex;
