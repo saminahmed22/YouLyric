@@ -6,7 +6,10 @@ import App from "./App.jsx";
 import getManualSearchTriggerBtn from "./manualSearchBtn.js";
 
 // Update startwithpip to false
+const currentSettingsVersion = 1;
 const defaultSettings = {
+  settingsVersion: currentSettingsVersion,
+
   autoStart: true,
   startWith: "description",
   startWithPip: false,
@@ -21,12 +24,17 @@ const defaultSettings = {
   pipFontColor: "rgb(134,166,220)",
   pipBackgroundColor: "rgba(6,2,18,0.97)",
   pipBorderColor: "rgb(134,166,220)",
-  pipPosition: { top: "10%", right: "50%" },
+  pipPosition: { top: "0", left: "0" },
 };
 
 function getSettings() {
   const stored = localStorage.getItem("youLyricSettings");
-  if (stored) return JSON.parse(stored);
+  if (stored) {
+    const settings = JSON.parse(stored);
+    if (settings?.settingsVersion === currentSettingsVersion) {
+      return settings;
+    }
+  }
 
   localStorage.setItem("youLyricSettings", JSON.stringify(defaultSettings));
   return defaultSettings;
@@ -53,8 +61,7 @@ function main(getSettings) {
   );
 }
 
-// Initially observes the whole document till "ytd-watch-flexy" appears,
-
+// Initially observes the whole document till "ytd-watch-flexy" appears
 function observeFlexy() {
   const ytFlexy = document.querySelector("ytd-watch-flexy");
   const middleRowDiv = document.querySelector("#middle-row");
