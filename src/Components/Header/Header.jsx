@@ -9,13 +9,15 @@ import rightIcon from "../../../icons/chevronRight.png";
 import leftIcon from "../../../icons/chevronLeft.png";
 
 export default function Header() {
-  const { status, lyrics, setLyrics } = useContext(AppContext);
+  const { status, lyrics, setLyrics, settings } = useContext(AppContext);
 
   const lyricsQuantity = lyrics.lyricsCount;
   const currentLyricIndex = lyrics.currentlySelectedLyrics;
 
   return (
-    <div className={styles.header}>
+    <div
+      className={`${styles.header} appDivHeader ${settings.currentDock === "PIP" && styles.headerPIP}`}
+    >
       <div className={styles.headerTitle}>
         <span className={styles.headerTitleText} draggable={false}>
           {status === "mount"
