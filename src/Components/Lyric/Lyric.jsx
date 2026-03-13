@@ -18,7 +18,7 @@ export default function Lyric() {
       if (currentDock === "description") {
         lyricsText.style.maxHeight = "500px";
       } else {
-        lyricsText.style.maxHeight = "350px";
+        lyricsText.style.maxHeight = "450px";
       }
       return;
     }
