@@ -7,25 +7,89 @@ import styles from "./Header.module.css";
 
 import rightIcon from "../../../icons/chevronRight.png";
 import leftIcon from "../../../icons/chevronLeft.png";
+import searchIcon from "../../../icons/search.png";
+import undoIcon from "../../../icons/undo.png";
 
 export default function Header() {
-  const { status, lyrics, setLyrics, settings } = useContext(AppContext);
+  const { status, setStatus, lyrics, setLyrics, settings } =
+    useContext(AppContext);
 
   const lyricsQuantity = lyrics.lyricsCount;
   const currentLyricIndex = lyrics.currentlySelectedLyrics;
 
+  const handleDoubleClick = () => {
+    setStatus(status === "mount" ? "manual_search" : "mount");
+  };
+
   return (
     <div
-      className={`${styles.header} appDivHeader ${settings.currentDock === "PIP" && styles.headerPIP}`}
+      className={`${styles.header} appDivHeader ${settings.currentDock === "PIP" && "headerPIP"}`}
     >
       <div className={styles.headerTitle}>
-        <span className={styles.headerTitleText} draggable={false}>
-          {status === "mount"
-            ? "Lyrics"
-            : status === "options"
-              ? "Options"
-              : ""}
-        </span>
+        {status === "mount" ? (
+          <button
+            className={`${styles.headerSearchButton} ${styles.headerTitleText}`}
+            title="Double click to search manually"
+            onDoubleClick={handleDoubleClick}
+          >
+            <span
+              className={styles.headerTitleText}
+              draggable={false}
+              style={
+                settings.currentDock === "PIP"
+                  ? { color: settings.pipFontColor }
+                  : { color: settings.fontColor }
+              }
+            >
+              Lyrics
+            </span>
+            <sup>
+              <img
+                title="Double click to search manually"
+                className={styles.HeaderSearchIcon}
+                src={searchIcon}
+                alt="Search Icon"
+              />
+            </sup>
+          </button>
+        ) : status === "options" ? (
+          <span className={styles.headerTitleText} draggable={false}>
+            Options
+          </span>
+        ) : status === "manual_search" ? (
+          lyrics.fetched ? (
+            <button
+              className={`${styles.headerSearchButton} ${styles.headerTitleText}`}
+              title="Double click to go back"
+              onDoubleClick={handleDoubleClick}
+            >
+              <span
+                className={styles.headerTitleText}
+                draggable={false}
+                style={
+                  settings.currentDock === "PIP"
+                    ? { color: settings.pipFontColor }
+                    : { color: settings.fontColor }
+                }
+              >
+                Manual Search
+              </span>
+              <sup>
+                <img
+                  title="Double click to go back"
+                  className={styles.HeaderSearchIcon}
+                  src={undoIcon}
+                  alt="Undo Icon"
+                />
+              </sup>
+            </button>
+          ) : (
+            <span>Manual search</span>
+          )
+        ) : (
+          ""
+        )}
+
         {status === "mount" && (
           <div className={styles.lyricScroll}>
             <button
