@@ -6,7 +6,7 @@ import searchIcon from "../../../icons/search.png";
 import styles from "./ManualSearchForm.module.css";
 
 export default function ManualSearchForm() {
-  const { videoInfo, setVideoInfo, setStatus } = useContext(AppContext);
+  const { lyrics, videoInfo, setVideoInfo, setStatus } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     songTitle: null,
@@ -34,18 +34,21 @@ export default function ManualSearchForm() {
   };
 
   const getMessage = () => {
+    if (lyrics.fetched) {
+      return <p>Wrong lyrics? Please search for the lyrics manually.</p>;
+    }
     if (videoInfo.attributed) {
       return (
         <>
           <p>{`Unable to find the lyrics :(`}</p>
-          <p>please search for the lyrics manually.</p>
+          <p>Please search for the lyrics manually.</p>
         </>
       );
     } else {
       return (
         <>
           <p>Can't find metadata for this video.</p>
-          <p>please search for the lyrics manually.</p>
+          <p>Please search for the lyrics manually.</p>
         </>
       );
     }
