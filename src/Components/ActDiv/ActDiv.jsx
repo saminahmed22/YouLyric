@@ -68,26 +68,24 @@ export default function ActDiv() {
 
         {(status === "mount" || status === "options") && (
           <>
-            {window.innerWidth >= 1120 && (
-              <button
-                className={`${styles.actBtn} extensionBtn`}
-                title={pip ? "PIP out" : "PIP out"}
-                onClick={() => {
-                  setSettings((prev) => ({
-                    ...prev,
-                    currentDock: pip ? prev.startWith : "PIP",
-                  }));
-                  setPip((prev) => !prev);
-                }}
+            <button
+              className={`${styles.actBtn} extensionBtn pipBtn`}
+              title={pip ? "PIP out" : "PIP out"}
+              onClick={() => {
+                setSettings((prev) => ({
+                  ...prev,
+                  currentDock: pip ? prev.startWith : "PIP",
+                }));
+                setPip((prev) => !prev);
+              }}
+              draggable={false}
+            >
+              <img
+                src={pip ? pipInIcon : pipOutIcon}
+                alt={pip ? "PIP out icon" : "PIP out icon"}
                 draggable={false}
-              >
-                <img
-                  src={pip ? pipInIcon : pipOutIcon}
-                  alt={pip ? "PIP out icon" : "PIP out icon"}
-                  draggable={false}
-                />
-              </button>
-            )}
+              />
+            </button>
 
             <button
               className={`${styles.actBtn} extensionBtn`}
