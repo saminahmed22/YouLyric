@@ -55,6 +55,7 @@ export default async function getLyrics(
   const fileredResponse = filterLyrics(response);
 
   setLyrics({
+    fetched: true,
     fetchedLyrics: fileredResponse,
     currentlySelectedLyrics: 0,
     lyricsCount: fileredResponse?.length ?? 0,
