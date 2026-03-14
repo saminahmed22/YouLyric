@@ -32,23 +32,30 @@
 .lyricsVariationText {
   user-select: none;
 }
+.headerTitleText {
+  font-size: 1.6rem;
+}
 
-.lyricsVariationText {
+.HeaderSearchIcon {
+  height: 12px;
+  opacity: 0.4;
+}
+.headerTitleText:hover .HeaderSearchIcon {
+  opacity: 1;
+}
+
+.headerSearchButton {
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+
+  background-color: transparent;
+  border: none;
   cursor: pointer;
 }
 
-.headerPIP {
-  margin-top: 0;
-}
-
-.headerPIP:hover:not(.extensionBtn) {
-  cursor: grab;
-  backdrop-filter: blur(12px) brightness(1.5);
-}
-
-.headerPIP:active:not(.extensionBtn) {
-  cursor: grabbing;
-  backdrop-filter: blur(12px) brightness(2.5);
+.lyricsVariationText {
+  cursor: pointer;
 }
 
 @container mainContainer (max-width: 600px) {
