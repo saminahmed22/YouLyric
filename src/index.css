@@ -92,6 +92,20 @@ html {
   cursor: not-allowed;
 }
 
+.headerPIP {
+  margin-top: 0 !important;
+}
+
+.headerPIP:not(:has(.extensionBtn:hover)):hover {
+  cursor: grab;
+  backdrop-filter: blur(12px) brightness(1.5);
+}
+
+.headerPIP:not(:has(.extensionBtn:active)):active {
+  cursor: grabbing;
+  backdrop-filter: blur(12px) brightness(2.5);
+}
+
 .manualSearchTriggerBtn,
 .manualSearchIconDiv {
   display: flex;
