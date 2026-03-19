@@ -47,6 +47,7 @@ export default function App({ settingObject }) {
   );
 
   const [lyrics, setLyrics] = useState({
+    fetched: false,
     fetchedLyrics: [],
     currentlySelectedLyrics: 0,
     lyricsCount: 0,
@@ -56,10 +57,12 @@ export default function App({ settingObject }) {
 
   const [pip, setPip] = useState(settings.startWithPip);
 
-  // this block is responsible for two tasks,
   // 1. check for the db entry on inital run
   // 2. check for the db entry on demand(when button gets clicked), if no entry, trigger manual search
+  const isAutoStart = useRef(settings.autoStart);
   useEffect(() => {
+    if (!isAutoStart.current) return;
+
     const run = async () => {
       const db = getDB();
       const record = await db.videos.get(getVideoID);
@@ -71,6 +74,7 @@ export default function App({ settingObject }) {
     run();
   }, [getVideoID]);
 
+  // Adds click listeners to manual search button
   useEffect(() => {
     const ytpControls = document.querySelector(".ytp-right-controls-left");
 
@@ -91,21 +95,32 @@ export default function App({ settingObject }) {
     return () => {
       ytpControls.removeEventListener("click", handler);
     };
-  }, [getVideoID, metadata, settings, settingObject]);
+  }, [getVideoID, metadata]); //settings, settingObject
 
   useEffect(() => {
     localStorage.setItem("youLyricSettings", JSON.stringify(settings));
   }, [settings]);
 
+  // Shifts dock to description if window width is too small to contian sidebar dock or pip
   useEffect(() => {
+    if (
+      settings.currentDock === "description" &&
+      settings.startWith === "description"
+    )
+      return;
+
     const changeDock = () => {
       const width = window.innerWidth;
 
+      const youLyricRoot = document.getElementById("youLyricRoot");
+      const sidebarButton = document.querySelector(".sideBarButton");
+      const pipButton = document.querySelector(".pipBtn");
+
       if (width <= 1120) {
-        const youLyricRoot = document.getElementById("youLyricRoot");
         youLyricRoot.remove();
 
         const targetDiv = document.getElementById("middle-row");
+
         targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
 
         if (pip) {
@@ -117,23 +132,20 @@ export default function App({ settingObject }) {
           currentDock: "description",
         }));
       } else if (width > 1120) {
-        const youLyricRoot = document.getElementById("youLyricRoot");
         youLyricRoot.remove();
 
-        let targetDiv;
-        if (settings.startWith === "sidebar") {
-          targetDiv = document.getElementById("secondary");
-        } else {
-          targetDiv = document.getElementById("middle-row");
-        }
+        const targetDiv = document.getElementById("secondary");
+
         targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
 
-        if (!pip) {
-          setSettings((prev) => ({
-            ...prev,
-            currentDock: prev.startWith,
-          }));
-        }
+        pipButton.style.display = "inline-block";
+
+        sidebarButton.disabled = false;
+
+        setSettings((prev) => ({
+          ...prev,
+          currentDock: "sidebar",
+        }));
       }
     };
 
@@ -142,26 +154,103 @@ export default function App({ settingObject }) {
     return () => {
       window.removeEventListener("resize", changeDock);
     };
-  }, [settings, pip]);
+  }, [settings.currentDock, settings.startWith, pip]);
 
-  const appDivRef = useRef(null);
+  // Removes and re-injects the extension on dock change
+  const initDeny = useRef(false);
+  const startingPIP = useRef(settings.startWithPip);
   useEffect(() => {
-    if (!appDivRef.current) return;
+    if (!startingPIP && !initDeny.current) {
+      initDeny.current = true;
+      return;
+    }
 
-    const appDiv = appDivRef.current;
+    const youLyricRoot = document.getElementById("youLyricRoot");
 
-    const onMouseDown = () => {
-      console.log("Hello");
+    youLyricRoot.remove();
+
+    if (settings.currentDock === "PIP") {
+      document.body.appendChild(youLyricRoot);
+
+      return;
+    } else {
+      const targetDiv = document.getElementById(
+        settings.startWith === "sidebar" ? "secondary" : "middle-row",
+      );
+      targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
+
+      const runSetSettings = () => {
+        setSettings((prev) => ({
+          ...prev,
+          currentDock: prev.startWith,
+        }));
+      };
+
+      runSetSettings();
+    }
+  }, [settings.currentDock, settings.startWith]);
+
+  // For making the PIP draggable
+  const isClicked = useRef(false);
+  const coords = useRef({
+    startX: 0,
+    startY: 0,
+    lastX: settings.pipPosition.left,
+    lastY: settings.pipPosition.top,
+  });
+
+  useEffect(() => {
+    const appDiv = document.querySelector(".appDivPIP");
+
+    if (settings.currentDock !== "PIP" || !appDiv) return;
+
+    const appDivHeader = document.querySelector(".appDivHeader");
+
+    const onMouseDown = (e) => {
+      isClicked.current = true;
+
+      coords.current.startX = e.clientX;
+      coords.current.startY = e.clientY;
     };
 
-    appDiv.addEventListener("mousedown", onMouseDown);
+    const onMouseUp = () => {
+      isClicked.current = false;
 
-    const cleanUP = () => {
-      appDiv.removeEventListener("mousedown", onMouseDown);
+      coords.current.lastX = appDiv.offsetLeft;
+      coords.current.lastY = appDiv.offsetTop;
+      document.body.style.userSelect = "auto";
+
+      setSettings((prev) => ({
+        ...prev,
+        pipPosition: { top: appDiv.offsetTop, left: appDiv.offsetLeft },
+      }));
     };
 
-    return cleanUP;
-  }, []);
+    const onMouseMove = (e) => {
+      if (!isClicked.current) return;
+
+      const nextX = e.clientX - coords.current.startX + coords.current.lastX;
+      const nextY = e.clientY - coords.current.startY + coords.current.lastY;
+
+      if (nextX > 0 && nextY > 0) {
+        appDiv.style.left = `${nextX}px`;
+        appDiv.style.top = `${nextY}px`;
+        document.body.style.userSelect = "none";
+      }
+    };
+
+    appDivHeader.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("mousemove", onMouseMove);
+
+    const cleanUp = () => {
+      appDivHeader.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mousemove", onMouseMove);
+    };
+
+    return cleanUp;
+  }, [settings.currentDock]);
 
   const app = () => {
     return (
@@ -173,8 +262,8 @@ export default function App({ settingObject }) {
                 color: settings.pipFontColor,
                 backgroundColor: settings.pipBackgroundColor,
                 borderColor: settings.pipBorderColor,
-                top: settings.pipPosition.top,
-                right: settings.pipPosition.right,
+                top: `${settings.pipPosition.top}px`,
+                left: `${settings.pipPosition.left}px`,
               }
             : {
                 color: settings.fontColor,
@@ -182,7 +271,6 @@ export default function App({ settingObject }) {
                 borderColor: settings.borderColor,
               }
         }
-        ref={appDivRef}
       >
         <AppContext.Provider
           value={{
