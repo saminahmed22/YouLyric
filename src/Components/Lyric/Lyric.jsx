@@ -13,6 +13,7 @@ export default function Lyric() {
   useEffect(() => {
     const currentDock = settings.currentDock;
     const lyricsText = document.querySelector(".lyricsTextPre");
+    if (!lyricsText) return;
 
     if (currentDock !== "sidebar") {
       if (currentDock === "description") {
