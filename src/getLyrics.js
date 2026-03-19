@@ -19,29 +19,29 @@ export default async function getLyrics(
   const isManuallyTyped = videoInfo.manuallyTyped;
 
   let songInfo;
-
   const db = getDB();
-  const record = await db.videos.get(videoInfo.videoID);
-
-  if (record) {
+  if (isManuallyTyped) {
     songInfo = {
-      songTitle: record.songTitle,
-      artistName: record.artistName,
+      songTitle: videoInfo.songTitle,
+      artistName: videoInfo.artistName,
     };
   } else {
-    songInfo = isManuallyTyped
-      ? { songTitle: videoInfo.songTitle, artistName: videoInfo.artistName }
-      : extractInfo();
+    const record = await db.videos.get(videoInfo.videoID);
+
+    if (record) {
+      songInfo = {
+        songTitle: record.songTitle,
+        artistName: record.artistName,
+      };
+    } else {
+      songInfo = extractInfo();
+    }
   }
 
   if (songInfo === "no_metadata") {
     setStatus("manual_search");
     return;
   }
-
-  // When the manual searching button gets clicked, it will firstly go through the normal fetching process,
-  // but if it can't find the metadata or an entry in db(which is checked before this if statement),
-  // it will trigger the manual search
 
   const response = await fetchLyrics(songInfo);
 
