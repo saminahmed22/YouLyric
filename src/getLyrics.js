@@ -3,16 +3,13 @@ import fetchLyrics from "../public/background.js";
 
 import getDB from "./indexedDB.js";
 
-export default async function getLyrics(
-  setLyrics,
-  status,
-  setStatus,
-  videoInfo,
-) {
+export default async function getLyrics(setLyrics, setStatus, videoInfo) {
+  const db = getDB();
+
   const isManuallyTyped = videoInfo.manuallyTyped;
 
   let songInfo;
-  const db = getDB();
+
   if (isManuallyTyped) {
     songInfo = {
       songTitle: videoInfo.songTitle,
@@ -38,8 +35,6 @@ export default async function getLyrics(
 
   const response = await fetchLyrics(songInfo);
 
-  // When the fetching process fails, due to the metadata having junk it in, or not having a metadata at all,
-  // it will call manual search, this block will also call manual search if the user given info is incorrect
   if (response === "failed") {
     setStatus("manual_search");
     return;
@@ -77,8 +72,10 @@ function filterLyrics(arr) {
   }
 
   const lyricArr = [];
+
   arr.forEach((obj) => {
     const lyrics = obj?.plainLyrics ?? "";
+
     const cursedPortugeses = [
       "as letras nao estao sincronizadas com a musica",
       "a letra nao esta sincronizada com a musica",
@@ -88,6 +85,7 @@ function filterLyrics(arr) {
       lyricArr.push(lyrics);
     }
   });
+
   const uniqueArr = [...new Set(lyricArr)];
 
   return uniqueArr;
