@@ -60,8 +60,8 @@ export default function Header() {
           lyrics.fetched ? (
             <button
               className={`${styles.headerSearchButton} ${styles.headerTitleText}`}
-              title="Double click to go back"
-              onDoubleClick={handleDoubleClick}
+              title="Click to go back"
+              onClick={handleDoubleClick}
             >
               <span
                 className={styles.headerTitleText}
