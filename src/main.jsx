@@ -21,9 +21,10 @@ const defaultSettings = {
   backgroundColor: "rgb(8,18,33)",
   borderColor: "rgb(134,166,220)",
 
-  pipFontColor: "rgb(134,166,220)",
-  pipBackgroundColor: "rgba(6,2,18,0.97)",
-  pipBorderColor: "rgb(134,166,220)",
+  pipFontColor: "rgba(217, 217, 217, 1)",
+  pipBackgroundColor: "rgba(9, 10, 11, 0.97)",
+  pipBorderColor: "rgba(255, 252, 252, 0.03)",
+
   pipPosition: { top: "0", left: "0" },
 };
 
@@ -47,11 +48,16 @@ function main(getSettings) {
   container.id = "youLyricRoot";
 
   const settingObject = getSettings();
-  const startWithSetting = settingObject.startWith;
+  const startWithSetting = settingObject.startWithPip
+    ? "PIP"
+    : settingObject.startWith;
 
-  let targetDiv = document.querySelector(
-    startWithSetting === "description" ? "#middle-row" : "#secondary",
-  );
+  const targetDiv =
+    startWithSetting === "PIP"
+      ? document.body
+      : document.getElementById(
+          startWithSetting === "description" ? "middle-row" : "secondary",
+        );
   targetDiv.insertBefore(container, targetDiv.firstChild);
 
   createRoot(container).render(
