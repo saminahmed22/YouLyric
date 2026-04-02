@@ -48,6 +48,7 @@ function main(getSettings) {
   container.id = "youLyricRoot";
 
   const settingObject = getSettings();
+
   const startWithSetting = settingObject.startWithPip
     ? "PIP"
     : settingObject.startWith;
@@ -58,6 +59,7 @@ function main(getSettings) {
       : document.getElementById(
           startWithSetting === "description" ? "middle-row" : "secondary",
         );
+
   targetDiv.insertBefore(container, targetDiv.firstChild);
 
   createRoot(container).render(
