@@ -9,13 +9,6 @@ export default async function getLyrics(
   setStatus,
   videoInfo,
 ) {
-  // this function should not be running if the status is not set to "fetching",
-  // but due to the useEffect in the AppContent, it will get called everytime the
-  // component gets re-rendered, as it only gets re-rendered when status updates and it's an dependency.
-  if (status !== "fetching") {
-    return;
-  }
-
   const isManuallyTyped = videoInfo.manuallyTyped;
 
   let songInfo;
@@ -76,6 +69,13 @@ export default async function getLyrics(
 
 // Fiters the empty string, random cursed Portugese strings and duplicates
 function filterLyrics(arr) {
+  const isInstrumental = arr[0].instrumental;
+  if (isInstrumental) {
+    return [
+      "No lyrics are available for this track; it is likely an instrumental.",
+    ];
+  }
+
   const lyricArr = [];
   arr.forEach((obj) => {
     const lyrics = obj?.plainLyrics ?? "";
@@ -90,7 +90,5 @@ function filterLyrics(arr) {
   });
   const uniqueArr = [...new Set(lyricArr)];
 
-  return uniqueArr.length > 0
-    ? uniqueArr
-    : ["No lyrics are available for this track; it is likely an instrumental."];
+  return uniqueArr;
 }
