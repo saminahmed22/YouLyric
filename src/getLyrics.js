@@ -1,4 +1,3 @@
-import extractInfo from "./extractInfo.js";
 import fetchLyrics from "../public/background.js";
 
 import getDB from "./indexedDB.js";
@@ -24,7 +23,10 @@ export default async function getLyrics(setLyrics, setStatus, videoInfo) {
         artistName: record.artistName,
       };
     } else {
-      songInfo = extractInfo();
+      songInfo = {
+        songTitle: videoInfo.songTitle,
+        artistName: videoInfo.artistName,
+      };
     }
   }
 
