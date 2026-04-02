@@ -30,7 +30,7 @@ export default function Lyric() {
     const callback = (entries) => {
       const entry = entries[0];
       const { height } = entry.contentRect;
-      const textMaxHeight = height - 131;
+      const textMaxHeight = height - 121;
 
       lyricsText.style.maxHeight = `${textMaxHeight}px`;
     };
