@@ -3,10 +3,11 @@ import { AppContext } from "../../context";
 
 import Header from "../../Components/Header/Header";
 import Lyric from "../../Components/Lyric/Lyric";
-import getLyrics from "../../getLyrics";
 import LoadingScreen from "../../Components/LoadingScreen/LoadingScreen";
 import ManualSearchForm from "../../Components/ManualSearchForm/ManualSearchForm";
 import OptionsPage from "../OptionsPage/OptionsPage";
+
+import getLyrics from "../../getLyrics";
 
 import styles from "./AppContent.module.css";
 
@@ -35,11 +36,11 @@ export default function AppContent() {
 
   useEffect(() => {
     const runGetLyrics = async () => {
-      await getLyrics(setLyrics, status, setStatus, videoInfo);
+      await getLyrics(setLyrics, setStatus, videoInfo);
     };
 
     runGetLyrics();
-  }, [status, setStatus, setLyrics, videoInfo, settings, pip]);
+  }, []);
 
   const getContent = () => {
     switch (status) {
