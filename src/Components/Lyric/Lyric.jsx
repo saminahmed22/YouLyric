@@ -73,25 +73,6 @@ export default function Lyric() {
             </a>
             .
           </p>
-          <p className={styles.creditText}>
-            {" "}
-            Please consider giving them a{" "}
-            <a
-              href="https://github.com/tranxuanthang/lrclib#donation"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={
-                pip
-                  ? { color: settings.pipFontColor }
-                  : {
-                      color: settings.fontColor,
-                    }
-              }
-            >
-              donation
-            </a>
-            .
-          </p>
         </div>
       </div>
     </div>
