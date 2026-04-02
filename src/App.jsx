@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { AppContext } from "./context";
+
 import AppContent from "./Components/AppContent/AppContent";
+
 import getDB from "./indexedDB";
 import extractInfo from "./extractInfo";
 
@@ -42,6 +44,7 @@ export default function App({ settingObject }) {
     ...settingObject,
     currentDock: settingObject.startWithPip ? "PIP" : settingObject.startWith,
   });
+
   const [status, setStatus] = useState(
     settings.autoStart ? (metadata ? "fetching" : "unmount") : "unmount",
   );
@@ -59,11 +62,14 @@ export default function App({ settingObject }) {
 
   // 1. check for the db entry on inital run
   // 2. check for the db entry on demand(when button gets clicked), if no entry, trigger manual search
-  const isAutoStart = useRef(settings.autoStart);
+  const initialDeny = useRef(settings.autoStart); // stops fetching from the db if autostart is false.
   useEffect(() => {
-    if (!isAutoStart.current) return;
+    if (!initialDeny.current) {
+      initialDeny.current = true;
+      return;
+    }
 
-    const run = async () => {
+    const checkDB = async () => {
       const db = getDB();
       const record = await db.videos.get(getVideoID);
       if (record) {
@@ -71,7 +77,7 @@ export default function App({ settingObject }) {
       }
     };
 
-    run();
+    checkDB();
   }, [getVideoID]);
 
   // Adds click listeners to manual search button
@@ -95,57 +101,55 @@ export default function App({ settingObject }) {
     return () => {
       ytpControls.removeEventListener("click", handler);
     };
-  }, [getVideoID, metadata]); //settings, settingObject
+  }, [getVideoID, metadata]);
 
   useEffect(() => {
     localStorage.setItem("youLyricSettings", JSON.stringify(settings));
   }, [settings]);
 
-  // Shifts dock to description if window width is too small to contian sidebar dock or pip
+  // changes dock to "description" if window inner width <= 1120px
+  const forcedShift = useRef({ dock: false, pip: false });
   useEffect(() => {
-    if (
-      settings.currentDock === "description" &&
-      settings.startWith === "description"
-    )
-      return;
-
     const changeDock = () => {
+      if (
+        settings.currentDock === settings.currentDock &&
+        !forcedShift.current.dock
+      )
+        return;
+
       const width = window.innerWidth;
 
-      const youLyricRoot = document.getElementById("youLyricRoot");
-      const sidebarButton = document.querySelector(".sideBarButton");
-      const pipButton = document.querySelector(".pipBtn");
-
-      if (width <= 1120) {
-        youLyricRoot.remove();
-
-        const targetDiv = document.getElementById("middle-row");
-
-        targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
-
+      if (width <= 1120 && !forcedShift.current.dock) {
         if (pip) {
+          forcedShift.current.pip = true;
           setPip(false);
         }
-
         setSettings((prev) => ({
           ...prev,
           currentDock: "description",
         }));
-      } else if (width > 1120) {
-        youLyricRoot.remove();
+        forcedShift.current.dock = true;
+      }
 
-        const targetDiv = document.getElementById("secondary");
+      if (width > 1120 && forcedShift.current.dock) {
+        if (forcedShift.current.pip) {
+          setSettings((prev) => ({
+            ...prev,
+            currentDock: "PIP",
+          }));
+        } else {
+          setSettings((prev) => ({
+            ...prev,
+            currentDock: prev.startWith,
+          }));
+        }
 
-        targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
+        if (forcedShift.current.pip) {
+          setPip(true);
+        }
 
-        pipButton.style.display = "inline-block";
-
-        sidebarButton.disabled = false;
-
-        setSettings((prev) => ({
-          ...prev,
-          currentDock: "sidebar",
-        }));
+        forcedShift.current.pip = false;
+        forcedShift.current.dock = false;
       }
     };
 
@@ -158,9 +162,9 @@ export default function App({ settingObject }) {
 
   // Removes and re-injects the extension on dock change
   const initDeny = useRef(false);
-  const startingPIP = useRef(settings.startWithPip);
+
   useEffect(() => {
-    if (!startingPIP && !initDeny.current) {
+    if (!initDeny.current) {
       initDeny.current = true;
       return;
     }
@@ -169,26 +173,14 @@ export default function App({ settingObject }) {
 
     youLyricRoot.remove();
 
-    if (settings.currentDock === "PIP") {
-      document.body.appendChild(youLyricRoot);
-
-      return;
-    } else {
-      const targetDiv = document.getElementById(
-        settings.startWith === "sidebar" ? "secondary" : "middle-row",
-      );
-      targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
-
-      const runSetSettings = () => {
-        setSettings((prev) => ({
-          ...prev,
-          currentDock: prev.startWith,
-        }));
-      };
-
-      runSetSettings();
-    }
-  }, [settings.currentDock, settings.startWith]);
+    const targetDiv =
+      settings.currentDock === "PIP"
+        ? document.body
+        : document.getElementById(
+            settings.currentDock === "description" ? "middle-row" : "secondary",
+          );
+    targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
+  }, [settings.currentDock]);
 
   // For making the PIP draggable
   const isClicked = useRef(false);
@@ -255,7 +247,7 @@ export default function App({ settingObject }) {
   const app = () => {
     return (
       <div
-        className={`appDiv ${pip ? "appDivPIP" : settings.currentDock === "sidebar" ? "appDivSidebar" : "addDivDescription"}`}
+        className={`appDiv ${pip ? "appDivPIP" : settings.currentDock === "sidebar" ? "appDivSidebar" : "appDivDescription"}`}
         style={
           pip
             ? {
