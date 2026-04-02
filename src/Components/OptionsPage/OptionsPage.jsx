@@ -60,7 +60,7 @@ export default function OptionsPage() {
           <label for="autoStart">Auto start?</label>
         </div>
         <div className={`${styles.startWithSection} ${styles.optionsGroup} `}>
-          <h4>Start with:</h4>
+          <h4>Dock in:</h4>
           <div className={styles.startWithBtns}>
             <button
               className={`${styles.startWithBtn} extensionBtn ${settings.startWith === "description" && styles.selectedStartWith}`}
