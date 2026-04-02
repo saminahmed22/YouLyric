@@ -113,6 +113,8 @@ export default function OptionsPage() {
                     startWith: "sidebar",
                     currentDock: "sidebar",
                   }));
+
+                  globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                 }
               }}
               draggable={false}
