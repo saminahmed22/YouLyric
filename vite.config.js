@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
 
   build: {
-    minify: "terser",
-    // minify: false,
+    // minify: "terser",
+    minify: false,
     rollupOptions: {
       output: {
         entryFileNames: `assets/[name].js`,
