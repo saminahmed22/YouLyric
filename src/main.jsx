@@ -17,9 +17,9 @@ const defaultSettings = {
 
   fontSize: 1.4,
 
-  fontColor: "rgb(134,166,220)",
-  backgroundColor: "rgb(8,18,33)",
-  borderColor: "rgb(134,166,220)",
+  fontColor: "rgba(240, 245, 253, 1)",
+  backgroundColor: "rgba(8, 18, 33, 0.31)",
+  borderColor: "rgba(134, 165, 219, 0.17)",
 
   pipFontColor: "rgba(217, 217, 217, 1)",
   pipBackgroundColor: "rgba(9, 10, 11, 0.97)",
