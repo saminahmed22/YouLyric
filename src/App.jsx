@@ -112,8 +112,9 @@ export default function App({ settingObject }) {
   useEffect(() => {
     const changeDock = () => {
       if (
-        settings.currentDock === settings.currentDock &&
-        !forcedShift.current.dock
+        settings.currentDock === "description" &&
+        settings.startWith === "description" &&
+        !forcedShift.current.pip
       )
         return;
 
