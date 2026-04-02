@@ -70,10 +70,18 @@ export default function OptionsPage() {
                   return;
                 }
 
-                setSettings((prev) => ({
-                  ...prev,
-                  startWith: "description",
-                }));
+                if (settings.currentDock === "PIP") {
+                  setSettings((prev) => ({
+                    ...prev,
+                    startWith: "description",
+                  }));
+                } else {
+                  setSettings((prev) => ({
+                    ...prev,
+                    startWith: "description",
+                    currentDock: "description",
+                  }));
+                }
               }}
               draggable={false}
             >
@@ -94,11 +102,18 @@ export default function OptionsPage() {
                 if (settings.startWith === "sidebar") {
                   return;
                 }
-
-                setSettings((prev) => ({
-                  ...prev,
-                  startWith: "sidebar",
-                }));
+                if (settings.currentDock === "PIP") {
+                  setSettings((prev) => ({
+                    ...prev,
+                    startWith: "sidebar",
+                  }));
+                } else {
+                  setSettings((prev) => ({
+                    ...prev,
+                    startWith: "sidebar",
+                    currentDock: "sidebar",
+                  }));
+                }
               }}
               draggable={false}
             >
