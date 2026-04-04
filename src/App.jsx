@@ -24,7 +24,7 @@ import extractInfo from "./extractInfo";
 
 export default function App({ settingObject }) {
   const metadata = !!document.querySelector(
-    ".yt-video-attribute-view-model__metadata",
+    ".ytVideoAttributeViewModelMetadata",
   );
 
   const { songTitle, artistName } = extractInfo();
