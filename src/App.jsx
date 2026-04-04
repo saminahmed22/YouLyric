@@ -6,6 +6,7 @@ import AppContent from "./Components/AppContent/AppContent";
 import getDB from "./indexedDB";
 
 export default function App({ settingObject }) {
+  //#region metadata, info, flexy, videoID
   const metadataClass = ".ytVideoAttributeViewModelMetadata";
   const titleClass = ".ytVideoAttributeViewModelTitle";
   const subtitleClass = ".ytVideoAttributeViewModelSubtitle";
@@ -17,7 +18,9 @@ export default function App({ settingObject }) {
 
   const ytFlexy = document.querySelector("ytd-watch-flexy");
   const getVideoID = ytFlexy.getAttribute("video-id");
+  //#endregion
 
+  //#region context states
   const [videoInfo, setVideoInfo] = useState({
     manuallyTyped: false,
     videoID: getVideoID,
@@ -45,7 +48,9 @@ export default function App({ settingObject }) {
   const [fontSize, setFontSize] = useState(settings.fontSize);
 
   const [pip, setPip] = useState(settings.startWithPip);
+  //#endregion
 
+  //#region useEffects
   // 1. check for the db entry on inital run
   // 2. check for the db entry on demand(when button gets clicked), if no entry, trigger manual search
   const initialDeny = useRef(settings.autoStart); // stops fetching from the db if autostart is false.
@@ -230,6 +235,7 @@ export default function App({ settingObject }) {
 
     return cleanUp;
   }, [settings.currentDock]);
+  //#endregion
 
   const app = () => {
     return (
