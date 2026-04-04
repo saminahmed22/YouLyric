@@ -23,16 +23,16 @@ export default async function getLyrics(setLyrics, setStatus, videoInfo) {
         artistName: record.artistName,
       };
     } else {
-      songInfo = {
-        songTitle: videoInfo.songTitle,
-        artistName: videoInfo.artistName,
-      };
+      if (!videoInfo.attributed) {
+        setStatus("manual_search");
+        return;
+      } else {
+        songInfo = {
+          songTitle: videoInfo.songTitle,
+          artistName: videoInfo.artistName,
+        };
+      }
     }
-  }
-
-  if (songInfo === "no_metadata") {
-    setStatus("manual_search");
-    return;
   }
 
   const response = await fetchLyrics(songInfo);
