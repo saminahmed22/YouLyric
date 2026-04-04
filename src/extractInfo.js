@@ -1,19 +1,11 @@
 export default function extractInfo() {
-  const metadata = !!document.querySelector(
-    ".yt-video-attribute-view-model__metadata",
-  );
-
-  if (!metadata) {
-    return "no_metadata";
-  }
-
   const songTitle =
-    document.querySelector(".yt-video-attribute-view-model__title")
-      ?.textContent || "";
+    document.querySelector(".ytVideoAttributeViewModelTitle")?.textContent ||
+    "";
 
   const artistName =
-    document.querySelector(".yt-video-attribute-view-model__subtitle")
-      ?.textContent || "";
+    document.querySelector(".ytVideoAttributeViewModelSubtitle")?.textContent ||
+    "";
 
   return { songTitle, artistName };
 }
