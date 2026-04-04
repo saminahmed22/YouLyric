@@ -4,30 +4,16 @@ import { AppContext } from "./context";
 import AppContent from "./Components/AppContent/AppContent";
 
 import getDB from "./indexedDB";
-import extractInfo from "./extractInfo";
-
-// "fetching", Will trigger loading screen, when:
-// 1. If metadata exists
-// 2. If metadata does not exists BUT DB entry exists
-// 3. After manually searched
-
-// "manual_search", will trigger manual search form, when:
-// 1. when metadata exists but failed to fetch
-// 2. when the button is clicked but no metadata or db entry was found
-
-// "mount", will trigger rendering the app when:
-//  1.  Lyrics has been fetched sucessfully
-
-// "unmount", will trigger when div is not supposed to render:
-// 1. No metadata exists
-// 2. When the close button was pressed
 
 export default function App({ settingObject }) {
-  const metadata = !!document.querySelector(
-    ".ytVideoAttributeViewModelMetadata",
-  );
+  const metadataClass = ".ytVideoAttributeViewModelMetadata";
+  const titleClass = ".ytVideoAttributeViewModelTitle";
+  const subtitleClass = ".ytVideoAttributeViewModelSubtitle";
 
-  const { songTitle, artistName } = extractInfo();
+  const metadata = !!document.querySelector(metadataClass);
+
+  const songTitle = document.querySelector(titleClass)?.textContent || "";
+  const artistName = document.querySelector(subtitleClass)?.textContent || "";
 
   const ytFlexy = document.querySelector("ytd-watch-flexy");
   const getVideoID = ytFlexy.getAttribute("video-id");
@@ -286,6 +272,10 @@ export default function App({ settingObject }) {
       </div>
     );
   };
+
+  // "unmount" status will trigger when div is not supposed to render:
+  // 1. No metadata exists
+  // 2. When the close button was pressed
 
   return status === "unmount" ? null : app();
 }
