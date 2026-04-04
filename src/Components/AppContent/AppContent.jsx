@@ -31,8 +31,7 @@ import styles from "./AppContent.module.css";
 // 2. When the close button was pressed
 
 export default function AppContent() {
-  const { status, setStatus, setLyrics, videoInfo, settings, pip } =
-    useContext(AppContext);
+  const { status, setStatus, setLyrics, videoInfo } = useContext(AppContext);
 
   useEffect(() => {
     const runGetLyrics = async () => {
@@ -40,7 +39,7 @@ export default function AppContent() {
     };
 
     runGetLyrics();
-  }, []);
+  }, [setLyrics, setStatus, videoInfo]);
 
   const getContent = () => {
     switch (status) {
