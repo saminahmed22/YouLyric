@@ -16408,15 +16408,16 @@ async function getLyrics(setLyrics, setStatus, videoInfo) {
         artistName: record.artistName
       };
     } else {
-      songInfo = {
-        songTitle: videoInfo.songTitle,
-        artistName: videoInfo.artistName
-      };
+      if (!videoInfo.attributed) {
+        setStatus("manual_search");
+        return;
+      } else {
+        songInfo = {
+          songTitle: videoInfo.songTitle,
+          artistName: videoInfo.artistName
+        };
+      }
     }
-  }
-  if (songInfo === "no_metadata") {
-    setStatus("manual_search");
-    return;
   }
   const response = await fetchLyrics(songInfo);
   if (response === "failed") {
@@ -16468,13 +16469,13 @@ const styles = {
   invalidStatus
 };
 function AppContent() {
-  const { status, setStatus, setLyrics, videoInfo, settings, pip } = reactExports.useContext(AppContext);
+  const { status, setStatus, setLyrics, videoInfo } = reactExports.useContext(AppContext);
   reactExports.useEffect(() => {
     const runGetLyrics = async () => {
       await getLyrics(setLyrics, setStatus, videoInfo);
     };
     runGetLyrics();
-  }, []);
+  }, [setLyrics, setStatus, videoInfo]);
   const getContent = () => {
     switch (status) {
       case "mount":
@@ -16494,22 +16495,13 @@ function AppContent() {
     getContent()
   ] });
 }
-function extractInfo() {
-  const metadata = !!document.querySelector(
-    ".yt-video-attribute-view-model__metadata"
-  );
-  if (!metadata) {
-    return "no_metadata";
-  }
-  const songTitle = document.querySelector(".yt-video-attribute-view-model__title")?.textContent || "";
-  const artistName = document.querySelector(".yt-video-attribute-view-model__subtitle")?.textContent || "";
-  return { songTitle, artistName };
-}
 function App({ settingObject }) {
-  const metadata = !!document.querySelector(
-    ".yt-video-attribute-view-model__metadata"
-  );
-  const { songTitle, artistName } = extractInfo();
+  const metadataClass = ".ytVideoAttributeViewModelMetadata";
+  const titleClass = ".ytVideoAttributeViewModelTitle";
+  const subtitleClass = ".ytVideoAttributeViewModelSubtitle";
+  const metadata = !!document.querySelector(metadataClass);
+  const songTitle = document.querySelector(titleClass)?.textContent || "";
+  const artistName = document.querySelector(subtitleClass)?.textContent || "";
   const ytFlexy = document.querySelector("ytd-watch-flexy");
   const getVideoID = ytFlexy.getAttribute("video-id");
   const [videoInfo, setVideoInfo] = reactExports.useState({
