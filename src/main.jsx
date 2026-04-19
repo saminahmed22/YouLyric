@@ -66,8 +66,6 @@ function main(getSettings) {
     if (startWithSetting === "sidebar") {
       const divs = document.querySelectorAll("#secondary");
 
-      console.log(divs);
-
       for (const div of divs) {
         if (div.querySelector("#secondary-inner")) return div;
       }
