@@ -131,8 +131,5 @@ function cleanUp() {
   }
 }
 
-navigation.addEventListener("navigate", () => {
-  cleanUp();
-});
-
+document.addEventListener("yt-navigate-start", cleanUp);
 //#endregion
