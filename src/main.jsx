@@ -5,6 +5,7 @@ import App from "./App.jsx";
 
 import getManualSearchTriggerBtn from "./manualSearchBtn.js";
 
+//#region Settings
 // Update startwithpip to false
 const currentSettingsVersion = 1;
 const defaultSettings = {
@@ -40,6 +41,8 @@ function getSettings() {
   localStorage.setItem("youLyricSettings", JSON.stringify(defaultSettings));
   return defaultSettings;
 }
+
+//#endregion
 
 function main(getSettings) {
   getManualSearchTriggerBtn();
@@ -81,6 +84,8 @@ function main(getSettings) {
     </StrictMode>,
   );
 }
+
+//#region Observer
 
 // Initially observes the whole document till "ytd-watch-flexy" appears
 function observeFlexy() {
@@ -125,4 +130,9 @@ function cleanUp() {
     container.remove();
   }
 }
-document.addEventListener("yt-navigate-start", cleanUp);
+
+navigation.addEventListener("navigate", () => {
+  cleanUp();
+});
+
+//#endregion
