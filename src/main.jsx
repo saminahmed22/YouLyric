@@ -6,7 +6,6 @@ import App from "./App.jsx";
 import getManualSearchTriggerBtn from "./manualSearchBtn.js";
 
 //#region Settings
-// Update startwithpip to false
 const currentSettingsVersion = 1;
 const defaultSettings = {
   settingsVersion: currentSettingsVersion,
