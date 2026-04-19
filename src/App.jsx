@@ -227,11 +227,15 @@ export default function App({ settingObject }) {
       const nextX = e.clientX - coords.current.startX + coords.current.lastX;
       const nextY = e.clientY - coords.current.startY + coords.current.lastY;
 
-      if (nextX > 0 && nextY > 0) {
-        appDiv.style.left = `${nextX}px`;
-        appDiv.style.top = `${nextY}px`;
-        document.body.style.userSelect = "none";
-      }
+      const maxX = window.innerWidth - appDiv.offsetWidth;
+      const maxY = window.innerHeight - appDiv.offsetHeight;
+
+      const clampedX = Math.min(Math.max(nextX, 0), maxX);
+      const clampedY = Math.min(Math.max(nextY, 0), maxY);
+
+      appDiv.style.left = `${clampedX}px`;
+      appDiv.style.top = `${clampedY}px`;
+      document.body.style.userSelect = "none";
     };
 
     appDivHeader.addEventListener("mousedown", onMouseDown);
@@ -290,7 +294,7 @@ export default function App({ settingObject }) {
     );
   };
 
-  // "unmount" status will trigger when div is not supposed to render:
+  // "unmount" status will trigger when:
   // 1. No metadata exists
   // 2. When the close button was pressed
 
