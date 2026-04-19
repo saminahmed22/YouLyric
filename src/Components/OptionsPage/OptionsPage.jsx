@@ -96,7 +96,7 @@ export default function OptionsPage() {
             </button>
 
             <button
-              className={`${styles.startWithBtn} extensionBtn ${settings.startWith === "sidebar" && styles.selectedStartWith} sideBarButton`}
+              className={`${styles.startWithBtn} extensionBtn ${settings.startWith === "sidebar" && styles.selectedStartWith}  sideBarButton`}
               title="Start with sidebar"
               onClick={() => {
                 if (settings.startWith === "sidebar") {
