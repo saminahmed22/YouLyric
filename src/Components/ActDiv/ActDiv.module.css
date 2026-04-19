@@ -12,3 +12,9 @@
 .zoomBtns {
   display: flex;
 }
+
+@media screen and (max-width: 1120px) {
+  .pipBtnTest {
+    display: none;
+  }
+}
