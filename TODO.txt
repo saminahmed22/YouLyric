@@ -3,20 +3,5 @@ BUG:
 
 1. Observer:
         1.  Loading the lyrics for previous song when switching to a song without metadata
-2. PIP:
-        1.  Goes out of viewport
-4. AppDIv:
-        1. When on  youtube pip and change video, the youtube navigation start signal doesn't gets fired, so it will add two appDivs, check for url changes instead.
 
-
-**
-
-
-**
-Features:
-
-1.  Options:
-        1.  Add option to clear cache.
-        2.  Disable sidebar button when forced docked in Description
-        3.  Disable PIP button when forced docked in Description
 **
