@@ -68,6 +68,7 @@ export default function Lyric() {
                       color: settings.fontColor,
                     }
               }
+              title={`"https://lrclib.net/" (Opens in a new tab)`}
             >
               LRCLIB
             </a>
