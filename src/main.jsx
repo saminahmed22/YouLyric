@@ -53,12 +53,25 @@ function main(getSettings) {
     ? "PIP"
     : settingObject.startWith;
 
-  const targetDiv =
-    startWithSetting === "PIP"
-      ? document.body
-      : document.getElementById(
-          startWithSetting === "description" ? "middle-row" : "secondary",
-        );
+  const getContainer = () => {
+    if (startWithSetting === "PIP") return document.body;
+
+    if (startWithSetting === "description")
+      return document.getElementById("middle-row");
+
+    // YouTube renders two #secondary
+    if (startWithSetting === "sidebar") {
+      const divs = document.querySelectorAll("#secondary");
+
+      console.log(divs);
+
+      for (const div of divs) {
+        if (div.querySelector("#secondary-inner")) return div;
+      }
+    }
+  };
+
+  const targetDiv = getContainer();
 
   targetDiv.insertBefore(container, targetDiv.firstChild);
 

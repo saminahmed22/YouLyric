@@ -165,12 +165,23 @@ export default function App({ settingObject }) {
 
     youLyricRoot.remove();
 
-    const targetDiv =
-      settings.currentDock === "PIP"
-        ? document.body
-        : document.getElementById(
-            settings.currentDock === "description" ? "middle-row" : "secondary",
-          );
+    const getContainer = () => {
+      if (settings.currentDock === "PIP") return document.body;
+
+      if (settings.currentDock === "description")
+        return document.getElementById("middle-row");
+
+      // YouTube renders two #secondary
+      if (settings.currentDock === "sidebar") {
+        const divs = document.querySelectorAll("#secondary");
+
+        for (const div of divs) {
+          if (div.querySelector("#secondary-inner")) return div;
+        }
+      }
+    };
+
+    const targetDiv = getContainer();
     targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
   }, [settings.currentDock]);
 
