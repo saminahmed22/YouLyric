@@ -249,7 +249,7 @@ export default function App({ settingObject }) {
     };
 
     return cleanUp;
-  }, [settings.currentDock]);
+  }, [settings.currentDock, status]);
   //#endregion
 
   const app = () => {
