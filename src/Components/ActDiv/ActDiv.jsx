@@ -69,7 +69,7 @@ export default function ActDiv() {
         {(status === "mount" || status === "options") && (
           <>
             <button
-              className={`${styles.actBtn} extensionBtn pipBtn`}
+              className={`${styles.actBtn} extensionBtn ${styles.pipBtnTest} pipBtn`}
               title={pip ? "PIP out" : "PIP out"}
               onClick={() => {
                 setSettings((prev) => ({
