@@ -44,6 +44,8 @@ function getSettings() {
 //#endregion
 
 function main(getSettings) {
+  cleanUp();
+
   getManualSearchTriggerBtn();
 
   const container = document.createElement("div");
