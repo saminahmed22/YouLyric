@@ -12503,11 +12503,13 @@ const AppContext = reactExports.createContext({
   setPip: () => {
   }
 });
-const ActDiv$1 = "_ActDiv_1fvn2_1";
-const zoomBtns = "_zoomBtns_1fvn2_12";
+const ActDiv$1 = "_ActDiv_1904f_1";
+const zoomBtns = "_zoomBtns_1904f_12";
+const pipBtnTest = "_pipBtnTest_1904f_17";
 const styles$7 = {
   ActDiv: ActDiv$1,
-  zoomBtns
+  zoomBtns,
+  pipBtnTest
 };
 const closeIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA10lEQVR4AeyUsQ6DMAxESSf6/x/asWzpXeQhob7YICEWkE0UfL4HBvFaLj4eQDjge0ZUa12R3/D2TAAtY7XtsKgn+ECVgtAZWgZ7uA7pAkopb6g25BTSmW/Wg5YxXAAl1iAhGXP6SACLCpI1p8cUQMEecsSc/SGAoh7CPVLOHLUhUgDrcD9Dq8klBejHAif54lH7ixDQm3NUTLikIVPA3hzGLY5AJECZNwJOWYgLiMzh3yIDcQHobr8KM8BWh2nkZ+sC0CQbPBT0vCGvtLgAV3ny4gMIB/cDAAD//zGBMJYAAAAGSURBVAMAXCd3MTsbZBoAAAAASUVORK5CYII=";
 const zoomInIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABhUlEQVR4AdyTrVLDQBRGA4o6cOCQ8AioVpYngTpQ4CgOFDh4E5CtwuLAYevAta6cEzbMJs02ZdoaMvfM3r+932Yn2czW/Pxjgel0ug1vENsHwf5fbrX2ihjyxJBPOIDYHK6I9Tif9GcEwvBu2NHbiB5yPdC6oU9/LiUBNu3SXQzfYfYjuQ70oWNMvQWaIvbrJykJ0PUC2iXDvnSgA1fgmpGf4J+DVvTr11IV8I4dcuuJoc+uNmhtY/BN7k1A3s+atKpA3OiJf09OoRqTarZ5AgO2X4MrS+Yax9kiT1Xg1U1cwxl3PQCvaGgOhsYwoH5BrOX9OimqAseh8Y4hW8EvnTzkb0LtKKzJpSTA6UZ0PoM2ZtgJufxNXIlPKYxBm5Dzi9JPUhKwi02+RSHif8DcH6P+AJqDt8gWYuZqmRGwK4js4b9DbMYt6v5sC4nUCjiRISM4hNiMHey/spBIUkCRJlBuFFlKwAM0iSwt0CSyEoFYJLyRqZyVCTitOtzcSgUcWGXtAt8AAAD//2BQu6IAAAAGSURBVAMAhDevMY08GQsAAAAASUVORK5CYII=";
@@ -12570,7 +12572,7 @@ function ActDiv() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
-          className: `${styles$7.actBtn} extensionBtn pipBtn`,
+          className: `${styles$7.actBtn} extensionBtn ${styles$7.pipBtnTest} pipBtn`,
           title: pip ? "PIP out" : "PIP out",
           onClick: () => {
             setSettings((prev) => ({
@@ -12833,6 +12835,7 @@ function Lyric() {
           style: pip ? { color: settings.pipFontColor } : {
             color: settings.fontColor
           },
+          title: `"https://lrclib.net/" (Opens in a new tab)`,
           children: "LRCLIB"
         }
       ),
@@ -13168,16 +13171,16 @@ function ColorPicker({ color, onChange }) {
 }
 const description = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAe0lEQVR4AexUUQ6AIAjNbtOf3f8Q9dltiPn1YLQW6GqpA4eCvPFwzFPj9TMAIsqsUcnIuqZoQ6fTFjk0QMmZnKs8VpsJoGJCxwFwS9+gqFeKvMPI4uudX+QcRek7FbTswWKV+fBuxXjRZOb+YI3KfgmAjlq2qKBWUsxzAgAA///lLq/cAAAABklEQVQDALQ4ujFB/kCDAAAAAElFTkSuQmCC";
 const sidebar = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAgklEQVR4AexVQQ6AIAxTf+MN//8IPfobXEhIuqEZ2fBCRoZOVttQCGzLz20ygZxzou6NhK5Li04sGnPGIQUK59rRCpAeCKXPJl4FGpRjIARU88KisEh1QAXELrJZ1HMhVGbE1jF8yzXYsWjMD/yPCdDZflP3xvUpgIVROZvBKFLkeQAAAP//Qsq8OAAAAAZJREFUAwAI6XoxUes56AAAAABJRU5ErkJggg==";
-const OptionsPageDiv = "_OptionsPageDiv_17828_1";
-const optionSection = "_optionSection_17828_6";
-const optionsGroup = "_optionsGroup_17828_14";
-const option = "_option_17828_6";
-const optionsGroupTitle = "_optionsGroupTitle_17828_19";
-const startWithSection = "_startWithSection_17828_30";
-const startWithBtns = "_startWithBtns_17828_35";
-const startWithBtn = "_startWithBtn_17828_35";
-const buttonIcon = "_buttonIcon_17828_67";
-const selectedStartWith = "_selectedStartWith_17828_82";
+const OptionsPageDiv = "_OptionsPageDiv_crz8t_1";
+const optionSection = "_optionSection_crz8t_6";
+const optionsGroup = "_optionsGroup_crz8t_14";
+const option = "_option_crz8t_6";
+const optionsGroupTitle = "_optionsGroupTitle_crz8t_19";
+const startWithSection = "_startWithSection_crz8t_30";
+const startWithBtns = "_startWithBtns_crz8t_35";
+const startWithBtn = "_startWithBtn_crz8t_35";
+const buttonIcon = "_buttonIcon_crz8t_67";
+const selectedStartWith = "_selectedStartWith_crz8t_82";
 const styles$1 = {
   OptionsPageDiv,
   optionSection,
@@ -13285,7 +13288,7 @@ function OptionsPage() {
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "button",
                 {
-                  className: `${styles$1.startWithBtn} extensionBtn ${settings.startWith === "sidebar" && styles$1.selectedStartWith} sideBarButton`,
+                  className: `${styles$1.startWithBtn} extensionBtn ${settings.startWith === "sidebar" && styles$1.selectedStartWith}  sideBarButton`,
                   title: "Start with sidebar",
                   onClick: () => {
                     if (settings.startWith === "sidebar") {
@@ -16609,9 +16612,18 @@ function App({ settingObject }) {
     }
     const youLyricRoot = document.getElementById("youLyricRoot");
     youLyricRoot.remove();
-    const targetDiv = settings.currentDock === "PIP" ? document.body : document.getElementById(
-      settings.currentDock === "description" ? "middle-row" : "secondary"
-    );
+    const getContainer = () => {
+      if (settings.currentDock === "PIP") return document.body;
+      if (settings.currentDock === "description")
+        return document.getElementById("middle-row");
+      if (settings.currentDock === "sidebar") {
+        const divs = document.querySelectorAll("#secondary");
+        for (const div of divs) {
+          if (div.querySelector("#secondary-inner")) return div;
+        }
+      }
+    };
+    const targetDiv = getContainer();
     targetDiv.insertBefore(youLyricRoot, targetDiv.firstChild);
   }, [settings.currentDock]);
   const isClicked = reactExports.useRef(false);
@@ -16644,11 +16656,13 @@ function App({ settingObject }) {
       if (!isClicked.current) return;
       const nextX = e2.clientX - coords.current.startX + coords.current.lastX;
       const nextY = e2.clientY - coords.current.startY + coords.current.lastY;
-      if (nextX > 0 && nextY > 0) {
-        appDiv.style.left = `${nextX}px`;
-        appDiv.style.top = `${nextY}px`;
-        document.body.style.userSelect = "none";
-      }
+      const maxX = window.innerWidth - appDiv.offsetWidth;
+      const maxY = window.innerHeight - appDiv.offsetHeight;
+      const clampedX = Math.min(Math.max(nextX, 0), maxX);
+      const clampedY = Math.min(Math.max(nextY, 0), maxY);
+      appDiv.style.left = `${clampedX}px`;
+      appDiv.style.top = `${clampedY}px`;
+      document.body.style.userSelect = "none";
     };
     appDivHeader.addEventListener("mousedown", onMouseDown);
     document.addEventListener("mouseup", onMouseUp);
@@ -16659,7 +16673,7 @@ function App({ settingObject }) {
       document.removeEventListener("mousemove", onMouseMove);
     };
     return cleanUp2;
-  }, [settings.currentDock]);
+  }, [settings.currentDock, status]);
   const app = () => {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       "div",
@@ -16755,14 +16769,24 @@ function getSettings() {
   return defaultSettings;
 }
 function main(getSettings2) {
+  cleanUp();
   getManualSearchTriggerBtn();
   const container = document.createElement("div");
   container.id = "youLyricRoot";
   const settingObject = getSettings2();
   const startWithSetting = settingObject.startWithPip ? "PIP" : settingObject.startWith;
-  const targetDiv = startWithSetting === "PIP" ? document.body : document.getElementById(
-    startWithSetting === "description" ? "middle-row" : "secondary"
-  );
+  const getContainer = () => {
+    if (startWithSetting === "PIP") return document.body;
+    if (startWithSetting === "description")
+      return document.getElementById("middle-row");
+    if (startWithSetting === "sidebar") {
+      const divs = document.querySelectorAll("#secondary");
+      for (const div of divs) {
+        if (div.querySelector("#secondary-inner")) return div;
+      }
+    }
+  };
+  const targetDiv = getContainer();
   targetDiv.insertBefore(container, targetDiv.firstChild);
   clientExports.createRoot(container).render(
     /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, { settingObject }) })
