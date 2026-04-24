@@ -2,10 +2,13 @@
 
 It is a browser extension that injects lyrics in music videos on YouTube.
 
+**It can be docked in the description(default):**
 ![It can be docked in the description(default)](./public/Desc-Demo.png)
 
+**It can be docked in the Sidebar:**
 ![It can be docked in the Sidebar](./public/Sidebar-Demo.png)
 
+**Being used in the PIP mode:**
 ![It can be used in PIP mode too!](./public/PIP-Demo.png)
 
 ## Features
